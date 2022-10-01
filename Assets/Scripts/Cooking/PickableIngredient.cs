@@ -3,13 +3,13 @@ using UnityEngine;
 
 namespace Cooking
 {
-    public class PickableIngredient : MonoBehaviour
+    public class PickableIngredient : MonoBehaviour, IPickable
     {
         public Ingredient ingredient;
         public Transform normalModel;
         public Transform plateModel;
-
-        public void PlaceOn(Transform parent, Vector3 offset)
+    
+        public void PlaceOnPlate(Transform parent, Vector3 offset)
         {
             transform.SetParent(parent);
             transform.localPosition = offset;

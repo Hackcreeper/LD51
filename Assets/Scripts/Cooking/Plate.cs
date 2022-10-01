@@ -5,18 +5,26 @@ using UnityEngine;
 
 namespace Cooking
 {
-    public class Plate : Interactable
+    public class Plate : Interactable, IPickable
     {
         public Meal[] meals;
 
         private readonly List<Ingredient> _ingredients = new();
-        private readonly List<PickableIngredient> _pickableIngredients = new();
+        private readonly List<IPickable> _pickableIngredients = new();
         private PickableMeal _placedMeal;
 
         public override void Interact(Player.Player player)
         {
-            var playerIngredient = player.GetIngredientHolder().GetCurrentIngredient();
-            if (!playerIngredient || _ingredients.Contains(playerIngredient) || (_placedMeal && _placedMeal.IsComplete()))
+            if (_placedMeal != null && _placedMeal.IsComplete())
+            {
+                player.GetItemHolder().PickPlate(this);
+                IsInteractable = false;
+                return;
+            }
+            
+            
+            var playerIngredient = player.GetItemHolder().GetCurrentIngredient();
+            if (!playerIngredient || _ingredients.Contains(playerIngredient) || (_placedMeal != null && _placedMeal.IsComplete()))
             {
                 return;
             }
@@ -39,7 +47,7 @@ namespace Cooking
                 
                     if (!_placedMeal)
                     {
-                        _pickableIngredients.ForEach(ingredient => Destroy(ingredient.gameObject));
+                        _pickableIngredients.ForEach(ingredient => Destroy(((PickableIngredient)ingredient).gameObject));
                         _pickableIngredients.Clear();
                         
                         var meal = Instantiate(possibleMeals.First().platePrefab, transform);
@@ -48,7 +56,7 @@ namespace Cooking
 
                     _ingredients.Add(playerIngredient);
                     _placedMeal.SetIngredients(_ingredients.ToArray());
-                    player.GetIngredientHolder().RemoveCurrent();
+                    player.GetItemHolder().RemoveCurrent();
 
                     if (_placedMeal.IsComplete())
                     {
@@ -61,7 +69,7 @@ namespace Cooking
                 default:
                 {
                     Debug.Log($"Found {possibleMeals.Count} possible meals.");
-                    _pickableIngredients.Add(player.GetIngredientHolder().MoveIngredient(transform, Vector3.zero));
+                    _pickableIngredients.Add(player.GetItemHolder().MoveIngredient(transform, Vector3.zero));
                     _ingredients.Add(playerIngredient);
                     return;
                 }

@@ -2,16 +2,16 @@
 
 namespace Player
 {
-    [RequireComponent(typeof(IngredientHolder))]
+    [RequireComponent(typeof(ItemHolder))]
     public class Player : MonoBehaviour
     {
-        private IngredientHolder _ingredientHolder;
+        private ItemHolder _itemHolder;
 
         private void Awake()
         {
-            _ingredientHolder = GetComponent<IngredientHolder>();
+            _itemHolder = GetComponent<ItemHolder>();
         }
 
-        public IngredientHolder GetIngredientHolder() => _ingredientHolder;
+        public ItemHolder GetItemHolder() => _itemHolder;
     }
 }

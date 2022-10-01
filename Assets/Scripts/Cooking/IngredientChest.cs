@@ -10,7 +10,7 @@ namespace Cooking
         public override void Interact(Player.Player player)
         {
             Debug.Log($"Picking up: {ingredient.label}");
-            player.GetIngredientHolder().Pick(ingredient);
+            player.GetItemHolder().PickIngredient(ingredient);
         }
     }
 }

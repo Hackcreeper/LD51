@@ -55,7 +55,7 @@ namespace Player
                 }
 
                 var distance = Vector3.Distance(transform.position, interactable.transform.position);
-                if (distance < closestDistance)
+                if (distance < closestDistance && interactable.CanInteract())
                 {
                     closestDistance = distance;
                     closest = interactable;

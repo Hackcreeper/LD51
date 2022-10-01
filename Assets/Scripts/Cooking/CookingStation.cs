@@ -12,7 +12,7 @@ namespace Cooking
             // Get the current ingredient the player is holding
             // Then check if there is a matching recipe
             // if so, replace the ingredient
-            var ingredient = player.GetIngredientHolder().GetCurrentIngredient();
+            var ingredient = player.GetItemHolder().GetCurrentIngredient();
             if (!ingredient)
             {
                 return;
@@ -24,7 +24,7 @@ namespace Cooking
                 return;
             }
             
-            player.GetIngredientHolder().Pick(recipe.output);
+            player.GetItemHolder().PickIngredient(recipe.output);
         }
     }
 }

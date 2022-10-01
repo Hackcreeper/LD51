@@ -16,7 +16,7 @@ namespace Ui
             _spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
-        public void ShowAt(Vector3 position, string message, Sprite icon)
+        public void ShowAt(Vector3 position)
         {
             _spriteRenderer.enabled = true;
             transform.position = position + new Vector3(0, 1f, .35f);
