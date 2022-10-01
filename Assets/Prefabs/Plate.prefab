@@ -65,6 +65,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 23b35691c5895304680641da7b6cbfd9, type: 2}
   - {fileID: 11400000, guid: 1bbb51e873181a546a9815af9e9e1e64, type: 2}
   - {fileID: 11400000, guid: f161bfa8ac6f1a146b55b892a76b3adf, type: 2}
+  - {fileID: 11400000, guid: 2625b615e1eb4af45a21cd190aaac7a5, type: 2}
   initialSlot: {fileID: 0}
 --- !u!1 &4306517812234811486
 GameObject:
