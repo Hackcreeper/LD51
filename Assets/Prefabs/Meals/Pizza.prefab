@@ -336,6 +336,9 @@ MonoBehaviour:
   - ingredient: {fileID: 11400000, guid: 662518cee2076d94a95d415efcfd3e2e, type: 2}
     unityObjects:
     - {fileID: 4357689198866390668}
+  bakedMaterials:
+  - meshRenderer: {fileID: 8495764715751448235}
+    material: {fileID: 2100000, guid: 164fa20d5bf0d1e4e8d037d26d02c1a6, type: 2}
 --- !u!1 &1012102393409769578
 GameObject:
   m_ObjectHideFlags: 0

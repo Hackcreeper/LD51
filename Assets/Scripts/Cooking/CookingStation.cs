@@ -9,21 +9,23 @@ namespace Cooking
         
         public override void Interact(Player.Player player)
         {
-            // Get the current ingredient the player is holding
-            // Then check if there is a matching recipe
-            // if so, replace the ingredient
             var ingredient = player.GetItemHolder().GetCurrentIngredient();
             if (!ingredient)
             {
                 return;
             }
+            
+            HandleIngredient(player, ingredient);
+        }
 
+        private void HandleIngredient(Player.Player player, Ingredient ingredient)
+        {
             var recipe = recipes.FirstOrDefault(recipe => recipe.input == ingredient);
             if (recipe == null)
             {
                 return;
             }
-            
+
             player.GetItemHolder().PickIngredient(recipe.output);
         }
     }

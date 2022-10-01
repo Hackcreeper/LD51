@@ -8,8 +8,10 @@ namespace Cooking
     {
         public Meal meal;
         public MealIngredient[] ingredients;
+        public MealIngredientBakedMaterial[] bakedMaterials;
 
         private bool _isComplete;
+        private bool _baked;
 
         public void SetIngredients(Ingredient[] existing)
         {
@@ -24,6 +26,20 @@ namespace Cooking
             _isComplete = existing.Length == ingredients.Length;
         }
 
+        public void Bake()
+        {
+            _baked = true;
+
+            foreach (var bakedMaterial in bakedMaterials)
+            {
+                bakedMaterial.meshRenderer.material = bakedMaterial.material;
+            }
+        }
+
         public bool IsComplete() => _isComplete;
+
+        public bool IsBaked() => _baked;
+
+        public bool IsReadyToDeliver() => meal.needsBaking ? _baked : _isComplete;
     }
 }

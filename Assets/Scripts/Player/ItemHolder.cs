@@ -17,7 +17,7 @@ namespace Player
         public void PickPlate(Plate plate)
         {
             RemoveCurrent();
-            
+
             plate.transform.SetParent(transform);
             plate.transform.localPosition = new Vector3(0, 2f, 0);
             _currentItem = plate.GetComponent<IPickable>();
@@ -34,19 +34,39 @@ namespace Player
             _currentItem = instance.GetComponent<IPickable>();
         }
 
-        public Ingredient GetCurrentIngredient() =>_currentItem != null && _currentItem.GetType() == typeof(PickableIngredient) ? ((PickableIngredient)_currentItem).ingredient : null;
+        public Ingredient GetCurrentIngredient() =>
+            _currentItem != null && _currentItem.GetType() == typeof(PickableIngredient)
+                ? ((PickableIngredient)_currentItem).ingredient
+                : null;
+
+        public Plate GetCurrentPlate() => _currentItem != null && _currentItem.GetType() == typeof(Plate)
+            ? (Plate)_currentItem
+            : null;
 
         public IPickable MoveIngredient(Transform target, Vector3 offset)
         {
             var item = _currentItem;
+
+            if (_currentItem == null)
+            {
+                return item;
+            }
             
-            if (_currentItem != null)
+            if (_currentItem.GetType() == typeof(PickableIngredient))
             {
                 ((PickableIngredient)_currentItem).PlaceOnPlate(target, offset);
+                
+                _currentItem = null;
+                return item;
             }
 
-            _currentItem = null;
+            var mono = ((MonoBehaviour)_currentItem).transform;
+                
+            mono.SetParent(target);
+            mono.localPosition = offset;
 
+            _currentItem = null;
+            
             return item;
         }
 
@@ -56,7 +76,7 @@ namespace Player
             {
                 return;
             }
-            
+
             Destroy(((MonoBehaviour)_currentItem).gameObject);
             _currentItem = null;
         }

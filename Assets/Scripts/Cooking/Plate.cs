@@ -8,6 +8,7 @@ namespace Cooking
     public class Plate : Interactable, IPickable
     {
         public Meal[] meals;
+        public DeskSlot initialSlot;
 
         private readonly List<Ingredient> _ingredients = new();
         private readonly List<IPickable> _pickableIngredients = new();
@@ -19,6 +20,7 @@ namespace Cooking
             {
                 player.GetItemHolder().PickPlate(this);
                 IsInteractable = false;
+                initialSlot.FreeSlot();
                 return;
             }
             
@@ -75,5 +77,9 @@ namespace Cooking
                 }
             }
         }
+
+        public Meal GetMeal() => _placedMeal? _placedMeal.meal : null;
+
+        public PickableMeal GetPickableMeal() => _placedMeal;
     }
 }

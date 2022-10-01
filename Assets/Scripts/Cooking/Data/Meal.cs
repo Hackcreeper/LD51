@@ -8,5 +8,6 @@ namespace Cooking.Data
         public string label;
         public Ingredient[] ingredients;
         public GameObject platePrefab;
+        public bool needsBaking;
     }
 }
