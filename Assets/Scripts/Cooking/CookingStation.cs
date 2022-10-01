@@ -26,7 +26,7 @@ namespace Cooking
                 return;
             }
 
-            player.GetItemHolder().PickIngredient(recipe.output);
+            player.GetItemHolder().PickIngredient(recipe.output, true);
         }
     }
 }

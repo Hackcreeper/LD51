@@ -18,9 +18,19 @@ namespace Cooking
         {
             if (_placedMeal != null && _placedMeal.IsComplete())
             {
-                player.GetItemHolder().PickPlate(this);
+                var worked = player.GetItemHolder().PickPlate(this);
+
                 IsInteractable = false;
                 initialSlot.FreeSlot();
+
+                if (worked)
+                {
+                    return;
+                }
+                
+                initialSlot.Interact(player);
+                player.GetItemHolder().PickPlate(this);
+
                 return;
             }
             
@@ -71,7 +81,7 @@ namespace Cooking
                 default:
                 {
                     Debug.Log($"Found {possibleMeals.Count} possible meals.");
-                    _pickableIngredients.Add(player.GetItemHolder().MoveIngredient(transform, Vector3.zero));
+                    _pickableIngredients.Add(player.GetItemHolder().MoveItem(transform, Vector3.zero));
                     _ingredients.Add(playerIngredient);
                     return;
                 }

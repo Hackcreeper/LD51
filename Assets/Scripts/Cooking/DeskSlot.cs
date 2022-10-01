@@ -17,21 +17,43 @@ namespace Cooking
             {
                 if (itemOnSlot.GetComponent<PickableIngredient>())
                 {
+                    var worked = player.GetItemHolder().PickIngredient(itemOnSlot.GetComponent<PickableIngredient>().ingredient);
+                    if (worked)
+                    {
+                        Destroy(itemOnSlot.gameObject);
+                        itemOnSlot = null;
+                        return;
+                    }
+
+                    var spawnedPickable = player.GetItemHolder().MoveItem(transform, Vector3.zero);
                     player.GetItemHolder().PickIngredient(itemOnSlot.GetComponent<PickableIngredient>().ingredient);
+                    
                     Destroy(itemOnSlot.gameObject);
-                    itemOnSlot = null;
+                    itemOnSlot = ((MonoBehaviour)spawnedPickable).transform;
+                    
                     return;
                 }
                 
                 if (itemOnSlot.GetComponent<Plate>())
                 {
+                    var worked = player.GetItemHolder().PickPlate(itemOnSlot.GetComponent<Plate>());
+
+                    if (worked)
+                    {
+                        itemOnSlot = null;
+                        return;
+                    }
+                    
+                    var spawnedPickable = player.GetItemHolder().MoveItem(transform, Vector3.zero);
                     player.GetItemHolder().PickPlate(itemOnSlot.GetComponent<Plate>());
-                    itemOnSlot = null;
+                    
+                    itemOnSlot = ((MonoBehaviour)spawnedPickable).transform;
+
                     return;
                 }
             }
             
-            var pickable = player.GetItemHolder().MoveIngredient(transform, Vector3.zero);
+            var pickable = player.GetItemHolder().MoveItem(transform, Vector3.zero);
             itemOnSlot = ((MonoBehaviour)pickable).transform;
         }
 

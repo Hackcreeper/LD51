@@ -8,19 +8,38 @@ namespace Player
     {
         private IPickable _currentItem;
 
-        public void PickIngredient(Ingredient ingredient)
+        public bool PickIngredient(Ingredient ingredient, bool replace = false)
         {
-            RemoveCurrent();
+            if (replace)
+            {
+                RemoveCurrent();
+            }
+
+            if (_currentItem != null)
+            {
+                return false;
+            }
+            
             SpawnAndPosition(ingredient.pickupPrefab);
+            return true;
         }
 
-        public void PickPlate(Plate plate)
+        public bool PickPlate(Plate plate, bool replace = false)
         {
-            RemoveCurrent();
+            if (replace)
+            {
+                RemoveCurrent();
+            }
+
+            if (_currentItem != null)
+            {
+                return false;
+            }
 
             plate.transform.SetParent(transform);
             plate.transform.localPosition = new Vector3(0, 2f, 0);
             _currentItem = plate.GetComponent<IPickable>();
+            return true;
         }
 
         private void SpawnAndPosition(GameObject prefab)
@@ -43,7 +62,7 @@ namespace Player
             ? (Plate)_currentItem
             : null;
 
-        public IPickable MoveIngredient(Transform target, Vector3 offset)
+        public IPickable MoveItem(Transform target, Vector3 offset)
         {
             var item = _currentItem;
 
