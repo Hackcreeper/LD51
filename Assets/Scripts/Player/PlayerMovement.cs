@@ -34,6 +34,12 @@ namespace Player
             childModel.LookAt(transform.position + _targetRotation);
             var newRotation = childModel.rotation;
             childModel.rotation = Quaternion.Lerp(originalRotation, newRotation, smoothRotationFactor * Time.deltaTime);
+            
+            childModel.rotation = Quaternion.Euler(
+                0,
+                childModel.rotation.eulerAngles.y,
+                0
+            );
         }
 
         public void OnMove(InputAction.CallbackContext context)
