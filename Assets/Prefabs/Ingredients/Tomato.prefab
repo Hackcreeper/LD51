@@ -130,6 +130,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ingredient: {fileID: 11400000, guid: 1276fa95ce22f37439dcf89f21a4250d, type: 2}
+  normalModel: {fileID: 4476229977262579594}
+  plateModel: {fileID: 4476229977262579594}
 --- !u!1 &7479308234479768324
 GameObject:
   m_ObjectHideFlags: 0

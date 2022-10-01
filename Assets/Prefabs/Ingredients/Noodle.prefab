@@ -144,3 +144,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ingredient: {fileID: 11400000, guid: 16951c732ab15d640853e7091fd7b577, type: 2}
+  normalModel: {fileID: 179192122342133759}
+  plateModel: {fileID: 179192122342133759}
