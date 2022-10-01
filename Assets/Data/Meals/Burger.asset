@@ -16,3 +16,7 @@ MonoBehaviour:
   ingredients:
   - {fileID: 11400000, guid: e341d0e30941a4b47bfb992614ad3c04, type: 2}
   - {fileID: 11400000, guid: 1b00408638ed7214eb660a7b6df19e95, type: 2}
+  - {fileID: 11400000, guid: ad19aa8dd7c56b84c91422146a933779, type: 2}
+  - {fileID: 11400000, guid: ca17e83ea0b42074a831e75b2037f63e, type: 2}
+  platePrefab: {fileID: 874729523498666435, guid: 7346458f6a07b5946ad72c192618fdb8,
+    type: 3}

@@ -15,9 +15,10 @@ namespace Cooking
         {
             foreach (var mealIngredient in ingredients)
             {
-                mealIngredient.unityObject.gameObject.SetActive(
-                    existing.Contains(mealIngredient.ingredient)                    
-                );
+                foreach (var unityObject in mealIngredient.unityObjects)
+                {
+                    unityObject.gameObject.SetActive(existing.Contains(mealIngredient.ingredient));
+                }
             }
 
             _isComplete = existing.Length == ingredients.Length;

@@ -7,6 +7,6 @@ namespace Cooking.Data
     public class MealIngredient
     {
         public Ingredient ingredient;
-        public Transform unityObject;
+        public Transform[] unityObjects;
     }
 }

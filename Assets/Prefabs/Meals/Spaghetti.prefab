@@ -325,9 +325,11 @@ MonoBehaviour:
   meal: {fileID: 11400000, guid: ef0b7ac8ce97adf4eb2af66f767123ae, type: 2}
   ingredients:
   - ingredient: {fileID: 11400000, guid: fc3a3efeb939a7b458bd5efec0b75e7f, type: 2}
-    unityObject: {fileID: 6035686810084921423}
+    unityObjects:
+    - {fileID: 6035686810084921423}
   - ingredient: {fileID: 11400000, guid: 215b74c6fd35ed54881138dfe9621eb8, type: 2}
-    unityObject: {fileID: 6472202890828072542}
+    unityObjects:
+    - {fileID: 6472202890828072542}
 --- !u!1 &2005481516208734013
 GameObject:
   m_ObjectHideFlags: 0
