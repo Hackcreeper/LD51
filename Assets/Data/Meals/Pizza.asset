@@ -15,4 +15,8 @@ MonoBehaviour:
   label: Pizza
   ingredients:
   - {fileID: 11400000, guid: fc3a3efeb939a7b458bd5efec0b75e7f, type: 2}
-  - {fileID: 11400000, guid: 16951c732ab15d640853e7091fd7b577, type: 2}
+  - {fileID: 11400000, guid: a1b31c3894b6c914c8d8a5706b4174c7, type: 2}
+  - {fileID: 11400000, guid: fc801ae10302c704db12aeb3937163c8, type: 2}
+  - {fileID: 11400000, guid: 662518cee2076d94a95d415efcfd3e2e, type: 2}
+  platePrefab: {fileID: 874729523498666435, guid: c02ab8161e0ba2f4fb086c71581db639,
+    type: 3}
