@@ -2,9 +2,11 @@
 using System.Linq;
 using Cooking.Data;
 using UnityEngine;
+using Util;
 
 namespace Cooking
 {
+    [RequireComponent(typeof(Yeeter))]
     public class Plate : Interactable, IPickable
     {
         public Meal[] meals;
@@ -13,6 +15,12 @@ namespace Cooking
         private readonly List<Ingredient> _ingredients = new();
         private readonly List<IPickable> _pickableIngredients = new();
         private PickableMeal _placedMeal;
+        private Yeeter _yeeter;
+
+        private void Awake()
+        {
+            _yeeter = GetComponent<Yeeter>();
+        }
 
         public override void Interact(Player.Player player)
         {
@@ -125,6 +133,12 @@ namespace Cooking
                 Destroy(_placedMeal.gameObject);
                 _placedMeal = null;
             }
+        }
+
+        public void Yeet(Vector3 target)
+        {
+            IsInteractable = false;
+            _yeeter.StartTheYeet(target);
         }
     }
 }
