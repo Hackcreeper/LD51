@@ -62,5 +62,10 @@ namespace Cooking
             IsInteractable = true;
             itemOnSlot = null;
         }
+
+        public void UnfreeSlot()
+        {
+            IsInteractable = false;
+        }
     }
 }

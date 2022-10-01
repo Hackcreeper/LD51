@@ -16,6 +16,14 @@ namespace Cooking
 
         public override void Interact(Player.Player player)
         {
+            if (player.GetItemHolder().IsEmpty())
+            {
+                player.GetItemHolder().PickPlate(this);
+                IsInteractable = false;
+                initialSlot.FreeSlot();
+                return;
+            }
+            
             if (_placedMeal != null && _placedMeal.IsComplete())
             {
                 var worked = player.GetItemHolder().PickPlate(this);
@@ -91,5 +99,32 @@ namespace Cooking
         public Meal GetMeal() => _placedMeal? _placedMeal.meal : null;
 
         public PickableMeal GetPickableMeal() => _placedMeal;
+
+        public void Placed(Transform target)
+        {
+            IsInteractable = true;
+            var slot = target.GetComponent<DeskSlot>();
+            if (!slot)
+            {
+                return;
+            }
+
+            initialSlot = slot;
+            initialSlot.UnfreeSlot();
+        }
+
+        public void Clear()
+        {
+            _pickableIngredients.ForEach(ingredient => Destroy(((PickableIngredient)ingredient).gameObject));
+            _pickableIngredients.Clear();
+            
+            _ingredients.Clear();
+
+            if (_placedMeal)
+            {
+                Destroy(_placedMeal.gameObject);
+                _placedMeal = null;
+            }
+        }
     }
 }

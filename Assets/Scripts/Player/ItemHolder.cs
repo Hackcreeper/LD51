@@ -79,6 +79,11 @@ namespace Player
                 return item;
             }
 
+            if (_currentItem.GetType() == typeof(Plate))
+            {
+                ((Plate)_currentItem).Placed(target);
+            }
+
             var mono = ((MonoBehaviour)_currentItem).transform;
                 
             mono.SetParent(target);
@@ -99,5 +104,7 @@ namespace Player
             Destroy(((MonoBehaviour)_currentItem).gameObject);
             _currentItem = null;
         }
+
+        public bool IsEmpty() => _currentItem == null;
     }
 }
