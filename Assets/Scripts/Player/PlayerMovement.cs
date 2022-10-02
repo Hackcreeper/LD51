@@ -13,6 +13,7 @@ namespace Player
         private CharacterController _characterController;
         private Vector2 _velocity;
         private Vector3 _targetRotation;
+        private bool _frozen;
 
         private void Awake()
         {
@@ -21,6 +22,11 @@ namespace Player
 
         private void Update()
         {
+            if (_frozen)
+            {
+                return;
+            }
+            
             var vec3 = new Vector3(_velocity.x, 0f, _velocity.y);
         
             _characterController.SimpleMove(vec3 * speed);
@@ -45,6 +51,16 @@ namespace Player
         public void OnMove(InputAction.CallbackContext context)
         {
             _velocity = context.ReadValue<Vector2>();
+        }
+
+        public void Freeze()
+        {
+            _frozen = true;
+        }
+
+        public void UnFreeze()
+        {
+            _frozen = false;
         }
     }
 }
