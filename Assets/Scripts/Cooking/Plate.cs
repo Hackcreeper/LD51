@@ -110,6 +110,11 @@ namespace Cooking
 
         public void Placed(Transform target)
         {
+            if (target == null)
+            {
+                return;
+            }
+            
             IsInteractable = true;
             var slot = target.GetComponent<DeskSlot>();
             if (!slot)

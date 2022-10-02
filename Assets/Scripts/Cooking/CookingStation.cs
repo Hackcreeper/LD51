@@ -9,9 +9,11 @@ namespace Cooking
         public Recipe[] recipes;
         public Animator animator;
         public bool freezePlayer;
+        public Transform itemTarget;
 
         protected Player.Player TmpPlayer;
         protected Ingredient TmpOutput;
+        protected Transform PlacedItem;
         
         protected static readonly int Working = Animator.StringToHash("working");
 
@@ -37,7 +39,8 @@ namespace Cooking
             TmpPlayer = player;
             TmpOutput = recipe.output;
             
-            player.GetItemHolder().RemoveCurrent();
+            var pickable = player.GetItemHolder().MoveItem(null, itemTarget.transform.position);
+            PlacedItem = ((MonoBehaviour)pickable).transform;
 
             if (freezePlayer)
             {
@@ -49,6 +52,7 @@ namespace Cooking
 
         public virtual void OnAnimationFinish()
         {
+            Destroy(PlacedItem.gameObject);
             TmpPlayer.GetItemHolder().PickIngredient(TmpOutput, true);
             
             if (freezePlayer)

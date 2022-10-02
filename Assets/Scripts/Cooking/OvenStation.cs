@@ -1,4 +1,6 @@
-﻿namespace Cooking
+﻿using UnityEngine;
+
+namespace Cooking
 {
     public class OvenStation : CookingStation
     {
@@ -27,6 +29,9 @@
                 TmpPlayer.GetPlayerMovement().Freeze();
             }
             
+            var pickable = player.GetItemHolder().MoveItem(null, itemTarget.transform.position);
+            PlacedItem = ((MonoBehaviour)pickable).transform;
+            
             animator.SetBool(Working, true);
         }
 
@@ -39,6 +44,7 @@
             }
             
             _cookingMeal.Bake();
+            TmpPlayer.GetItemHolder().PickPlate(PlacedItem.GetComponent<Plate>(), true);
             
             if (freezePlayer)
             {
