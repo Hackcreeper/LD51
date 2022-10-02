@@ -7,6 +7,9 @@ namespace Player
     public class ItemHolder : MonoBehaviour
     {
         public Animator animator;
+        public Transform target;
+        public Transform model;
+        
         private IPickable _currentItem;
         
         private static readonly int Holding = Animator.StringToHash("holding");
@@ -40,8 +43,8 @@ namespace Player
                 return false;
             }
 
-            plate.transform.SetParent(transform);
-            plate.transform.localPosition = new Vector3(0, 2f, 0);
+            plate.transform.SetParent(model);
+            plate.transform.localPosition = target.localPosition;
             _currentItem = plate.GetComponent<IPickable>();
             animator.SetBool(Holding, true);
             
@@ -52,10 +55,11 @@ namespace Player
         {
             var instance = Instantiate(
                 prefab,
-                transform
+                model
             );
 
-            instance.transform.localPosition = new Vector3(0, 2f, 0);
+            instance.transform.localPosition = target.localPosition;
+            instance.transform.localScale = Vector3.one * 2;
             _currentItem = instance.GetComponent<IPickable>();
         }
 
