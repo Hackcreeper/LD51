@@ -2088,6 +2088,37 @@ MonoBehaviour:
   recipes:
   - input: {fileID: 11400000, guid: e2def10923b38a747aa8f1287f063b8d, type: 2}
     output: {fileID: 11400000, guid: ca17e83ea0b42074a831e75b2037f63e, type: 2}
+--- !u!1 &789043143
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 789043144}
+  m_Layer: 0
+  m_Name: ' '
+  m_TagString: EditorOnly
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &789043144
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 789043143}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 28
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &804287970
 GameObject:
   m_ObjectHideFlags: 0
@@ -2490,7 +2521,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 28
+  m_RootOrder: 30
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &874866333
 MonoBehaviour:
@@ -4431,6 +4462,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1460824533}
+  - component: {fileID: 1460824534}
+  - component: {fileID: 1460824535}
   m_Layer: 0
   m_Name: YeetTarget
   m_TagString: Untagged
@@ -4451,8 +4484,44 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 26
+  m_RootOrder: 29
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1460824534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1460824532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 499f38005b37478e9072a596f497f4d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meals:
+  - meal: {fileID: 11400000, guid: 23b35691c5895304680641da7b6cbfd9, type: 2}
+    happiness: 4
+  - meal: {fileID: 11400000, guid: f161bfa8ac6f1a146b55b892a76b3adf, type: 2}
+    happiness: 4
+  - meal: {fileID: 11400000, guid: 1bbb51e873181a546a9815af9e9e1e64, type: 2}
+    happiness: 4
+  - meal: {fileID: 11400000, guid: 2625b615e1eb4af45a21cd190aaac7a5, type: 2}
+    happiness: 4
+  - meal: {fileID: 11400000, guid: ef0b7ac8ce97adf4eb2af66f767123ae, type: 2}
+    happiness: 4
+--- !u!65 &1460824535
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1460824532}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 0, z: 4}
 --- !u!1001 &1491258122
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5238,7 +5307,7 @@ Transform:
   - {fileID: 192948945}
   - {fileID: 1037887620}
   m_Father: {fileID: 0}
-  m_RootOrder: 29
+  m_RootOrder: 27
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1825616118
 GameObject:
@@ -6318,7 +6387,7 @@ Transform:
   m_Children:
   - {fileID: 5643359155186526872}
   m_Father: {fileID: 0}
-  m_RootOrder: 27
+  m_RootOrder: 26
   m_LocalEulerAnglesHint: {x: 0, y: 240, z: 0}
 --- !u!23 &3181108743532538590
 MeshRenderer:

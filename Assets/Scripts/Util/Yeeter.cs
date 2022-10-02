@@ -4,7 +4,7 @@ namespace Util
 {
     public class Yeeter : MonoBehaviour
     {
-        public float speed = 0.004f;
+        public float speed = 0.1f;
         
         private bool _started;
         private Vector3 _target;
@@ -25,7 +25,7 @@ namespace Util
                 return;
             }
 
-            _incrementor += speed;
+            _incrementor += speed * Time.deltaTime;
 
             transform.position = Vector3.Lerp(_start, _target, _incrementor);
         }
