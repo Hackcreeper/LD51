@@ -11,6 +11,8 @@ namespace Feeding
         public MealHappiness[] meals;
         [Range(0, 100)] public int rageMeter = 100;
         public GameObject platePrefab;
+        public RectTransform rageMeterBar;
+        public int rageMeterMaxWidth = 310;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -25,7 +27,7 @@ namespace Feeding
             // Determine the rage
             var eatenMeal = GetMealHappinessByMeal(plate.GetMeal());
             rageMeter = Mathf.Clamp(rageMeter + CalculateRageByHappiness(eatenMeal.happiness), 0, 100);
-
+            
             // Update happiness meters
             foreach (var meal in meals)
             {
@@ -37,7 +39,6 @@ namespace Feeding
             }
             
             // Remove plate and respawn it
-            // plate.initialSlot
             var newPlate = Instantiate(platePrefab);
             newPlate.transform.position = plate.initialSlot.transform.position;
             plate.initialSlot.itemOnSlot = newPlate.transform;
@@ -45,7 +46,6 @@ namespace Feeding
             plate.initialSlot.UnfreeSlot();
             
             Destroy(other.gameObject);
-            // TODO: Respawn
         }
 
         private static int CalculateRageByHappiness(int happiness)
@@ -64,6 +64,16 @@ namespace Feeding
         private MealHappiness GetMealHappinessByMeal(Meal meal)
         {
             return meals.First(m => m.meal == meal);
+        }
+        
+        private void Update()
+        {
+            var size = rageMeterBar.sizeDelta;
+
+            rageMeterBar.sizeDelta = new Vector2(
+                Mathf.Lerp(size.x, rageMeterMaxWidth / 100f * rageMeter, 10f * Time.deltaTime),
+                size.y
+            );
         }
     }
 }

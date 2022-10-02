@@ -54,7 +54,7 @@ namespace Cooking
                 return;
             }
 
-            var oldPlate = PlacedItem.GetComponent<Plate>();
+            var oldPlate = PlacedItem ? PlacedItem.GetComponent<Plate>() : null;
             var oldOutput = TmpOutput;
             var oldPlacedItem = PlacedItem;
             
