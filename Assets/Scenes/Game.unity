@@ -4000,6 +4000,46 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7771781161444872035, guid: 0ebc46ba8ae4f7e418bbfd151215d942,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.000000053385083
+      objectReference: {fileID: 0}
+    - target: {fileID: -7771781161444872035, guid: 0ebc46ba8ae4f7e418bbfd151215d942,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -7771781161444872035, guid: 0ebc46ba8ae4f7e418bbfd151215d942,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.000000053385072
+      objectReference: {fileID: 0}
+    - target: {fileID: -7771781161444872035, guid: 0ebc46ba8ae4f7e418bbfd151215d942,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.7071067
+      objectReference: {fileID: 0}
+    - target: {fileID: -7771781161444872035, guid: 0ebc46ba8ae4f7e418bbfd151215d942,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7771781161444872035, guid: 0ebc46ba8ae4f7e418bbfd151215d942,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7771781161444872035, guid: 0ebc46ba8ae4f7e418bbfd151215d942,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6773409799272041400, guid: 0ebc46ba8ae4f7e418bbfd151215d942,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3797e09f2f7b5734e88dbeaf5ae6b47b, type: 2}
     - target: {fileID: -6652725513331149018, guid: 0ebc46ba8ae4f7e418bbfd151215d942,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -4075,6 +4115,31 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 3797e09f2f7b5734e88dbeaf5ae6b47b, type: 2}
+    - target: {fileID: 5318039774487720540, guid: 0ebc46ba8ae4f7e418bbfd151215d942,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.000000053385083
+      objectReference: {fileID: 0}
+    - target: {fileID: 5318039774487720540, guid: 0ebc46ba8ae4f7e418bbfd151215d942,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 5318039774487720540, guid: 0ebc46ba8ae4f7e418bbfd151215d942,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.000000053385072
+      objectReference: {fileID: 0}
+    - target: {fileID: 5318039774487720540, guid: 0ebc46ba8ae4f7e418bbfd151215d942,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.7071067
+      objectReference: {fileID: 0}
+    - target: {fileID: 5318039774487720540, guid: 0ebc46ba8ae4f7e418bbfd151215d942,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5924245513674848945, guid: 0ebc46ba8ae4f7e418bbfd151215d942,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -4258,6 +4323,32 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1410022239}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1442954609 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 0ebc46ba8ae4f7e418bbfd151215d942,
+    type: 3}
+  m_PrefabInstance: {fileID: 1305843746}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1442954610
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1442954609}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3772a79249e3815428db31768adc3496, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1450322466
 GameObject:
   m_ObjectHideFlags: 0
@@ -4617,6 +4708,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97a5315fbcd947eea0e024dc1b21e9e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 1442954610}
 --- !u!114 &1524806828
 MonoBehaviour:
   m_ObjectHideFlags: 0

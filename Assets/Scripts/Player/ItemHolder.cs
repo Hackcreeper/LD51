@@ -6,7 +6,10 @@ namespace Player
 {
     public class ItemHolder : MonoBehaviour
     {
+        public Animator animator;
         private IPickable _currentItem;
+        
+        private static readonly int Holding = Animator.StringToHash("holding");
 
         public bool PickIngredient(Ingredient ingredient, bool replace = false)
         {
@@ -21,6 +24,7 @@ namespace Player
             }
             
             SpawnAndPosition(ingredient.pickupPrefab);
+            animator.SetBool(Holding, true);
             return true;
         }
 
@@ -39,6 +43,8 @@ namespace Player
             plate.transform.SetParent(transform);
             plate.transform.localPosition = new Vector3(0, 2f, 0);
             _currentItem = plate.GetComponent<IPickable>();
+            animator.SetBool(Holding, true);
+            
             return true;
         }
 
@@ -76,6 +82,8 @@ namespace Player
                 ((PickableIngredient)_currentItem).PlaceOnPlate(target, offset);
                 
                 _currentItem = null;
+                animator.SetBool(Holding, false);
+                
                 return item;
             }
 
@@ -90,6 +98,7 @@ namespace Player
             mono.localPosition = offset;
 
             _currentItem = null;
+            animator.SetBool(Holding, false);
             
             return item;
         }
@@ -103,6 +112,7 @@ namespace Player
 
             Destroy(((MonoBehaviour)_currentItem).gameObject);
             _currentItem = null;
+            animator.SetBool(Holding, false);
         }
 
         public bool IsEmpty() => _currentItem == null;
