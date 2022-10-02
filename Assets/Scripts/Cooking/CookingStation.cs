@@ -10,10 +10,10 @@ namespace Cooking
         public Animator animator;
         public bool freezePlayer;
 
-        private Player.Player _player;
-        private Ingredient _output;
+        protected Player.Player TmpPlayer;
+        protected Ingredient TmpOutput;
         
-        private static readonly int Working = Animator.StringToHash("working");
+        protected static readonly int Working = Animator.StringToHash("working");
 
         public override void Interact(Player.Player player)
         {
@@ -26,7 +26,7 @@ namespace Cooking
             HandleIngredient(player, ingredient);
         }
 
-        private void HandleIngredient(Player.Player player, Ingredient ingredient)
+        protected void HandleIngredient(Player.Player player, Ingredient ingredient)
         {
             var recipe = recipes.FirstOrDefault(recipe => recipe.input == ingredient);
             if (recipe == null)
@@ -34,8 +34,8 @@ namespace Cooking
                 return;
             }
 
-            _player = player;
-            _output = recipe.output;
+            TmpPlayer = player;
+            TmpOutput = recipe.output;
             
             player.GetItemHolder().RemoveCurrent();
 
@@ -47,17 +47,17 @@ namespace Cooking
             animator.SetBool(Working, true);
         }
 
-        public void OnAnimationFinish()
+        public virtual void OnAnimationFinish()
         {
-            _player.GetItemHolder().PickIngredient(_output, true);
+            TmpPlayer.GetItemHolder().PickIngredient(TmpOutput, true);
             
             if (freezePlayer)
             {
-                _player.GetPlayerMovement().UnFreeze();
+                TmpPlayer.GetPlayerMovement().UnFreeze();
             }
 
-            _player = null;
-            _output = null;
+            TmpPlayer = null;
+            TmpOutput = null;
         }
     }
 }

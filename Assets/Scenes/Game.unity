@@ -1957,6 +1957,7 @@ GameObject:
   - component: {fileID: 766329926}
   - component: {fileID: 766329925}
   - component: {fileID: 766329929}
+  - component: {fileID: 766329930}
   m_Layer: 6
   m_Name: OvenStation
   m_TagString: Untagged
@@ -2057,8 +2058,28 @@ MonoBehaviour:
   recipes:
   - input: {fileID: 11400000, guid: e2def10923b38a747aa8f1287f063b8d, type: 2}
     output: {fileID: 11400000, guid: ca17e83ea0b42074a831e75b2037f63e, type: 2}
-  animator: {fileID: 0}
+  animator: {fileID: 766329930}
   freezePlayer: 0
+--- !u!95 &766329930
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 766329923}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cb3f2819ad4777a44b96d5b21333cb83, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &789043143
 GameObject:
   m_ObjectHideFlags: 0
@@ -3619,6 +3640,7 @@ GameObject:
   - component: {fileID: 1105252685}
   - component: {fileID: 1105252684}
   - component: {fileID: 1105252683}
+  - component: {fileID: 1105252688}
   m_Layer: 6
   m_Name: StoveStation
   m_TagString: Untagged
@@ -3647,7 +3669,7 @@ MonoBehaviour:
     output: {fileID: 11400000, guid: ad19aa8dd7c56b84c91422146a933779, type: 2}
   - input: {fileID: 11400000, guid: c68abf63fd179a840a59cd45e0b3b4d9, type: 2}
     output: {fileID: 11400000, guid: 699543ea03c166249b1944567c0e201e, type: 2}
-  animator: {fileID: 0}
+  animator: {fileID: 1105252688}
   freezePlayer: 0
 --- !u!65 &1105252684
 BoxCollider:
@@ -3727,6 +3749,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 30, z: 0}
+--- !u!95 &1105252688
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1105252682}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 44893f610e21dcf4ea92e735a801f19b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1132471316
 GameObject:
   m_ObjectHideFlags: 0

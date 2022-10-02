@@ -8,7 +8,8 @@ namespace Cooking
     {
         public Meal meal;
         public MealIngredient[] ingredients;
-        public MealIngredientBakedMaterial[] bakedMaterials;
+        public Transform bakedModel;
+        public Transform unbakedModel;
 
         private bool _isComplete;
         private bool _baked;
@@ -30,10 +31,8 @@ namespace Cooking
         {
             _baked = true;
 
-            foreach (var bakedMaterial in bakedMaterials)
-            {
-                bakedMaterial.meshRenderer.material = bakedMaterial.material;
-            }
+            unbakedModel.gameObject.SetActive(false);
+            bakedModel.gameObject.SetActive(true);
         }
 
         public bool IsComplete() => _isComplete;
