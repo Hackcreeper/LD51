@@ -8,11 +8,6 @@ namespace Cooking
 
         public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            if (stateInfo.normalizedTime > .1f)
-            {
-                return;
-            }
-            
             animator.SetBool(Working, false);
         }
 
