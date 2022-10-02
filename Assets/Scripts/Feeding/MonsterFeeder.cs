@@ -9,6 +9,7 @@ namespace Feeding
     public class MonsterFeeder : MonoBehaviour
     {
         public MealHappiness[] meals;
+        [Range(0, 100)] public int rageMeter = 100;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -20,8 +21,10 @@ namespace Feeding
             
             Debug.Log($"Feeding: {plate.GetMeal().label}");
             
-            
-            
+            // Determine the rage
+            var eatenMeal = GetMealHappinessByMeal(plate.GetMeal());
+            rageMeter = Mathf.Clamp(rageMeter + CalculateRageByHappiness(eatenMeal.happiness), 0, 100);
+
             // Update happiness meters
             foreach (var meal in meals)
             {
@@ -35,6 +38,19 @@ namespace Feeding
             // Remove plate and respawn it
             Destroy(other.gameObject);
             // TODO: Respawn
+        }
+
+        private static int CalculateRageByHappiness(int happiness)
+        {
+            return happiness switch
+            {
+                0 => -25, // Hate
+                1 => -15, // Dislike
+                2 => 0, // Meh
+                3 => 15, // Okay
+                4 => 25, // Happy
+                _ => 0
+            };
         }
 
         private MealHappiness GetMealHappinessByMeal(Meal meal)
