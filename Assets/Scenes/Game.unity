@@ -7594,7 +7594,8 @@ MonoBehaviour:
     replacementPrefab: {fileID: 0}
   - input: {fileID: 11400000, guid: d0baa2f362d9e0b4aaa1bb7f16e035a1, type: 2}
     output: {fileID: 11400000, guid: ad19aa8dd7c56b84c91422146a933779, type: 2}
-    replacementPrefab: {fileID: 0}
+    replacementPrefab: {fileID: 4934483418392524649, guid: fdff36adebe18e74da7688f807286f8e,
+      type: 3}
   - input: {fileID: 11400000, guid: c68abf63fd179a840a59cd45e0b3b4d9, type: 2}
     output: {fileID: 11400000, guid: 699543ea03c166249b1944567c0e201e, type: 2}
     replacementPrefab: {fileID: 0}
