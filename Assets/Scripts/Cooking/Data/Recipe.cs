@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Cooking.Data
 {
@@ -7,5 +8,6 @@ namespace Cooking.Data
     {
         public Ingredient input;
         public Ingredient output;
+        public GameObject replacementPrefab;
     }
 }

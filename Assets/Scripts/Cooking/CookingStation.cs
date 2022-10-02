@@ -60,6 +60,17 @@ namespace Cooking
             var pickable = player.GetItemHolder().MoveItem(null, itemTarget.transform.position);
             PlacedItem = ((MonoBehaviour)pickable).transform;
 
+            if (recipe.replacementPrefab)
+            {
+                var replacement = Instantiate(recipe.replacementPrefab, PlacedItem.parent);
+                replacement.transform.localPosition = PlacedItem.localPosition;
+                replacement.transform.localScale = PlacedItem.localScale;
+                replacement.transform.localRotation = PlacedItem.localRotation;
+                
+                Destroy(PlacedItem.gameObject);
+                PlacedItem = replacement.transform;
+            }
+
             if (oldOutput != null)
             {
                 player.GetItemHolder().PickIngredient(oldOutput);

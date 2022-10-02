@@ -4741,6 +4741,7 @@ MonoBehaviour:
   recipes:
   - input: {fileID: 11400000, guid: e2def10923b38a747aa8f1287f063b8d, type: 2}
     output: {fileID: 11400000, guid: ca17e83ea0b42074a831e75b2037f63e, type: 2}
+    replacementPrefab: {fileID: 0}
   animator: {fileID: 766329930}
   freezePlayer: 0
   itemTarget: {fileID: 1948687828}
@@ -5557,10 +5558,13 @@ MonoBehaviour:
   recipes:
   - input: {fileID: 11400000, guid: 1276fa95ce22f37439dcf89f21a4250d, type: 2}
     output: {fileID: 11400000, guid: 1b00408638ed7214eb660a7b6df19e95, type: 2}
+    replacementPrefab: {fileID: 0}
   - input: {fileID: 11400000, guid: 393ff8c95481c63499bd54302cbd674a, type: 2}
     output: {fileID: 11400000, guid: e341d0e30941a4b47bfb992614ad3c04, type: 2}
+    replacementPrefab: {fileID: 0}
   - input: {fileID: 11400000, guid: c68abf63fd179a840a59cd45e0b3b4d9, type: 2}
     output: {fileID: 11400000, guid: 662518cee2076d94a95d415efcfd3e2e, type: 2}
+    replacementPrefab: {fileID: 0}
   animator: {fileID: 898754642}
   freezePlayer: 1
   itemTarget: {fileID: 1709386988}
@@ -7427,12 +7431,17 @@ MonoBehaviour:
   recipes:
   - input: {fileID: 11400000, guid: 1b00408638ed7214eb660a7b6df19e95, type: 2}
     output: {fileID: 11400000, guid: fc3a3efeb939a7b458bd5efec0b75e7f, type: 2}
+    replacementPrefab: {fileID: 4934483418392524649, guid: 8752372e30f8cda43aede33f99170c2f,
+      type: 3}
   - input: {fileID: 11400000, guid: 16951c732ab15d640853e7091fd7b577, type: 2}
     output: {fileID: 11400000, guid: 215b74c6fd35ed54881138dfe9621eb8, type: 2}
+    replacementPrefab: {fileID: 0}
   - input: {fileID: 11400000, guid: d0baa2f362d9e0b4aaa1bb7f16e035a1, type: 2}
     output: {fileID: 11400000, guid: ad19aa8dd7c56b84c91422146a933779, type: 2}
+    replacementPrefab: {fileID: 0}
   - input: {fileID: 11400000, guid: c68abf63fd179a840a59cd45e0b3b4d9, type: 2}
     output: {fileID: 11400000, guid: 699543ea03c166249b1944567c0e201e, type: 2}
+    replacementPrefab: {fileID: 0}
   animator: {fileID: 1105252688}
   freezePlayer: 0
   itemTarget: {fileID: 970493223}
