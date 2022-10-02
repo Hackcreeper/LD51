@@ -10,6 +10,7 @@ namespace Feeding
     {
         public MealHappiness[] meals;
         [Range(0, 100)] public int rageMeter = 100;
+        public GameObject platePrefab;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -36,6 +37,13 @@ namespace Feeding
             }
             
             // Remove plate and respawn it
+            // plate.initialSlot
+            var newPlate = Instantiate(platePrefab);
+            newPlate.transform.position = plate.initialSlot.transform.position;
+            plate.initialSlot.itemOnSlot = newPlate.transform;
+            newPlate.GetComponent<Plate>().initialSlot = plate.initialSlot;
+            plate.initialSlot.UnfreeSlot();
+            
             Destroy(other.gameObject);
             // TODO: Respawn
         }

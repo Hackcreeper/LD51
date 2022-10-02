@@ -4202,6 +4202,8 @@ MonoBehaviour:
   - meal: {fileID: 11400000, guid: ef0b7ac8ce97adf4eb2af66f767123ae, type: 2}
     happiness: 4
   rageMeter: 100
+  platePrefab: {fileID: 158625187376389019, guid: c9c63e16f666078469fdc0280eae8229,
+    type: 3}
 --- !u!65 &1460824535
 BoxCollider:
   m_ObjectHideFlags: 0
