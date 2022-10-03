@@ -93,7 +93,7 @@ namespace Cooking
                 return;
             }
 
-            var recipe = recipes.FirstOrDefault(recipe => recipe.input == ingredient);
+            var recipe = recipeBook.recipes.FirstOrDefault(recipe => recipe.input == ingredient);
             if (recipe == null)
             {
                 return;

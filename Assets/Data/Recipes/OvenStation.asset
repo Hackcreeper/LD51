@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faac837949a94506af99c17b83bee50d, type: 3}
+  m_Name: OvenStation
+  m_EditorClassIdentifier: 
+  recipes:
+  - input: {fileID: 11400000, guid: e2def10923b38a747aa8f1287f063b8d, type: 2}
+    output: {fileID: 11400000, guid: ca17e83ea0b42074a831e75b2037f63e, type: 2}
+    replacementPrefab: {fileID: 0}

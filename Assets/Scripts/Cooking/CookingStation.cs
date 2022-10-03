@@ -6,7 +6,7 @@ namespace Cooking
 {
     public class CookingStation : Interactable
     {
-        public Recipe[] recipes;
+        public RecipeBook recipeBook;
         public Animator animator;
         public bool freezePlayer;
         public Transform itemTarget;
@@ -88,7 +88,7 @@ namespace Cooking
 
         public Recipe GetRecipeByInput(Ingredient ingredient)
         {
-            var recipe = recipes.FirstOrDefault(recipe => recipe.input == ingredient);
+            var recipe = recipeBook.recipes.FirstOrDefault(recipe => recipe.input == ingredient);
             return recipe;
         }
 
