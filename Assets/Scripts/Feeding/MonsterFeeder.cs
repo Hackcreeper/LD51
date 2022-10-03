@@ -54,10 +54,13 @@ namespace Feeding
             }
             
             // Remove plate and respawn it
-            var newPlate = Instantiate(platePrefab);
-            newPlate.transform.position = plate.initialSlot.transform.position;
+            var newPlate = Instantiate(platePrefab, null);
+            newPlate.transform.position = plate.initialSlot.itemTarget.position;
             plate.initialSlot.itemOnSlot = newPlate.transform;
-            newPlate.GetComponent<Plate>().initialSlot = plate.initialSlot;
+            var plateComponent = newPlate.GetComponent<Plate>();
+            plateComponent.initialSlot = plate.initialSlot;
+            plateComponent.startIngredient = plate.startIngredient;
+            plateComponent.startMeal = plate.startMeal;
             plate.initialSlot.UnfreeSlot();
             
             Destroy(other.gameObject);

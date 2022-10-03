@@ -69,6 +69,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f161bfa8ac6f1a146b55b892a76b3adf, type: 2}
   - {fileID: 11400000, guid: 2625b615e1eb4af45a21cd190aaac7a5, type: 2}
   initialSlot: {fileID: 0}
+  startMeal: {fileID: 0}
+  startIngredient: {fileID: 0}
 --- !u!114 &4330583696937088815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,7 +136,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 5f1e02b4e0a12fb4b9566557bc4897e2,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5f1e02b4e0a12fb4b9566557bc4897e2,
         type: 3}
