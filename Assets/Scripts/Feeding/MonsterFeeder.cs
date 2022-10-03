@@ -9,6 +9,7 @@ namespace Feeding
     public class MonsterFeeder : MonoBehaviour
     {
         public MealHappiness[] meals;
+        public Sprite[] happinessIcons;
         [Range(0, 100)] public int rageMeter = 100;
         public GameObject platePrefab;
         public RectTransform rageMeterBar;
@@ -36,6 +37,7 @@ namespace Feeding
                     : meal.happiness + 1;
              
                 meal.happiness = Mathf.Clamp(happiness,0, 4);
+                meal.smileyIcon.sprite = happinessIcons[meal.happiness];
             }
             
             // Remove plate and respawn it

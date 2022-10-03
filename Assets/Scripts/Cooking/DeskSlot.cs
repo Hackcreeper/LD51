@@ -54,7 +54,7 @@ namespace Cooking
             }
             
             var pickable = player.GetItemHolder().MoveItem(transform, Vector3.zero);
-            itemOnSlot = ((MonoBehaviour)pickable).transform;
+            itemOnSlot = ((MonoBehaviour)pickable)?.transform;
         }
 
         public void FreeSlot()

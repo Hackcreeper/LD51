@@ -20,7 +20,7 @@ namespace Player
             _characterController = GetComponent<CharacterController>();
         }
 
-        private void Update()
+        protected virtual void Update()
         {
             if (_frozen)
             {

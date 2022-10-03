@@ -45,7 +45,7 @@ namespace Cooking
 
         protected virtual void HandleIngredient(Player.Player player, Ingredient ingredient)
         {
-            var recipe = recipes.FirstOrDefault(recipe => recipe.input == ingredient);
+            var recipe = GetRecipeByInput(ingredient);
             if (recipe == null)
             {
                 return;
@@ -86,6 +86,12 @@ namespace Cooking
             IsWorking = true;
         }
 
+        public Recipe GetRecipeByInput(Ingredient ingredient)
+        {
+            var recipe = recipes.FirstOrDefault(recipe => recipe.input == ingredient);
+            return recipe;
+        }
+
         public virtual void OnAnimationFinish()
         {
             IsWorking = false;
@@ -110,6 +116,11 @@ namespace Cooking
             
             Destroy(PlacedItem.gameObject);
             PlacedItem = instance.transform;
+        }
+
+        public void AttachBot()
+        {
+            IsInteractable = false;
         }
     }
 }
