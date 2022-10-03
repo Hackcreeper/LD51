@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Ai;
 using Cooking;
 using Cooking.Data;
 using Feeding.Data;
@@ -24,21 +25,32 @@ namespace Feeding
         public Image timerBackground;
         public Flash flash;
         public Monster monster;
+        public YeetBot yeetBot;
+        public Bot bot1;
+        public Bot bot2;
 
         private float _timeLeft = 10f;
         private bool _gotFed = false;
+        private int _killed = 0;
 
         private void OnTriggerEnter(Collider other)
         {
+            if (other.GetComponent<Bot>())
+            {
+                Destroy(other.gameObject);
+                monster.StopSuck();
+                return;
+            }
+            
             var plate = other.GetComponent<Plate>();
             if (!plate)
             {
                 return;
             }
-            
+
             Debug.Log($"Feeding: {plate.GetMeal().label}");
             _gotFed = true;
-            
+
             monster.Crunch();
 
             // Determine the rage
@@ -51,11 +63,11 @@ namespace Feeding
                 var happiness = meal.meal == plate.GetMeal()
                     ? meal.happiness - 1
                     : meal.happiness + 1;
-             
-                meal.happiness = Mathf.Clamp(happiness,0, 4);
+
+                meal.happiness = Mathf.Clamp(happiness, 0, 4);
                 meal.smileyIcon.sprite = happinessIcons[meal.happiness];
             }
-            
+
             // Remove plate and respawn it
             var newPlate = Instantiate(platePrefab, null);
             newPlate.transform.position = plate.initialSlot.itemTarget.position;
@@ -65,7 +77,7 @@ namespace Feeding
             plateComponent.startIngredient = plate.startIngredient;
             plateComponent.startMeal = plate.startMeal;
             plate.initialSlot.UnfreeSlot();
-            
+
             Destroy(other.gameObject);
         }
 
@@ -86,7 +98,7 @@ namespace Feeding
         {
             return meals.First(m => m.meal == meal);
         }
-        
+
         private void Update()
         {
             var size = rageMeterBar.sizeDelta;
@@ -129,7 +141,7 @@ namespace Feeding
                     ModifyRageMeter(-ragePenaltyIfNoFood);
                     return;
                 }
-                
+
                 Debug.Log("Time is up. Monster is not hungry");
                 _timeLeft = 10f;
                 _gotFed = false;
@@ -140,10 +152,40 @@ namespace Feeding
         {
             rageMeter = Mathf.Clamp(rageMeter + amount, 0, 100);
 
-            if (amount < 0)
+            if (amount >= 0)
             {
-                flash.StartFlash();
+                return;
             }
+            
+            flash.StartFlash();
+
+            if (GetCurrentDeathLayer().killed <= _killed)
+            {
+                return;
+            }
+            
+            monster.StartSuck();
+            _killed = GetCurrentDeathLayer().killed;
+
+            if (_killed == 1)
+            {
+                yeetBot.GetSucked(transform.position);
+                return;
+            }
+
+            if (_killed == 2)
+            {
+                bot2.GetSucked(transform.position);
+                return;
+            }
+
+            if (_killed == 3)
+            {
+                bot1.GetSucked(transform.position);
+                return;
+            }
+            
+            Debug.Log("GAME OVER");
         }
 
         private DeathLayer GetCurrentDeathLayer()

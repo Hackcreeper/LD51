@@ -12,8 +12,7 @@ namespace Ai
     {
         public LayerMask interactableLayerMask;
         public LayerMask entityLayerMask;
-
-
+        
         private RecipeTask _currentTask;
         private TaskManager _taskManager;
         private TaskProgress _progress;
@@ -22,6 +21,8 @@ namespace Ai
         protected Player.Player Player;
         protected NavMeshAgent Agent;
         protected Vector3 StartPosition;
+        protected bool Sucked;
+        protected Vector3 SuckTarget;
 
         private void Awake()
         {
@@ -80,6 +81,14 @@ namespace Ai
 
         protected virtual void Update()
         {
+            if (Sucked)
+            {
+                transform.position = Vector3.Lerp(
+                    transform.position, SuckTarget, 5f * Time.deltaTime
+                );
+                return;
+            }
+            
             if (_currentTask == null || _progress == TaskProgress.Idle)
             {
                 return;
@@ -200,6 +209,7 @@ namespace Ai
 
             _currentTarget.Interact(Player);
             _progress = TaskProgress.Done;
+            _taskManager.MarkCompleted(this);
 
             Agent.destination = StartPosition;
         }
@@ -266,6 +276,21 @@ namespace Ai
 
             Agent.SetDestination(plate.transform.position);
             _progress = TaskProgress.PutOnPlate;
+        }
+
+        public void GetSucked(Vector3 target)
+        {
+            Sucked = true;
+            SuckTarget = target;
+            
+            Agent.enabled = false;
+            if (_taskManager != null)
+            {
+                _taskManager.MarkKilled(this);
+            }
+
+            Player.GetPlayerMovement().enabled = false;
+            Player.GetPlayerMovement().childModel.LookAt(target);
         }
     }
 }

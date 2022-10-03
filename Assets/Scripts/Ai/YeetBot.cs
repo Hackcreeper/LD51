@@ -18,6 +18,14 @@ namespace Ai
 
         protected override void Update()
         {
+            if (Sucked)
+            {
+                transform.position = Vector3.Lerp(
+                    transform.position, SuckTarget, 5f * Time.deltaTime
+                );
+                return;
+            }
+            
             _yeetDelay -= Time.deltaTime;
             
             switch (_yeetState)

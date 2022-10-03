@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Ai.Data;
 using Cooking;
@@ -44,7 +43,7 @@ namespace Ai
                 var task = _lockedMeal.tasks[i];
                 var bot = availableBots.Count > 0 ? availableBots.Dequeue() : null;
 
-                _ongoingTasks.Add(new OngoingTask(task, bot));
+                _ongoingTasks.Add(new OngoingTask(task, bot, i));
                 if (!bot)
                 {
                     continue;
@@ -117,6 +116,30 @@ namespace Ai
                 // Clear locked meal
                 _lockedMeal = null;
             }
+        }
+
+        public void MarkCompleted(Bot bot)
+        {
+            var task = _ongoingTasks.FirstOrDefault(task => task.GetBot() == bot);
+            if (task == null)
+            {
+                return;
+            }
+
+            task.MarkCompleted();
+            recipePreview.SetTaskStateOfLocked(task.GetUiIndex(), TaskState.Done);
+        }
+        
+        public void MarkKilled(Bot bot)
+        {
+            var task = _ongoingTasks.FirstOrDefault(task => task.GetBot() == bot);
+            if (task == null || task.IsCompleted())
+            {
+                return;
+            }
+            
+            // Mark in UI, that task is no longer managed by bot
+            recipePreview.SetTaskStateOfLocked(task.GetUiIndex(), TaskState.Normal);
         }
     }
 }

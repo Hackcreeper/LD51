@@ -10206,6 +10206,7 @@ GameObject:
   - component: {fileID: 1226529905}
   - component: {fileID: 1226529904}
   - component: {fileID: 1226529903}
+  - component: {fileID: 1226529911}
   m_Layer: 7
   m_Name: Bot 2
   m_TagString: Untagged
@@ -10343,6 +10344,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &1226529911
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1226529902}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &1228050332
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13266,21 +13283,26 @@ MonoBehaviour:
   deathLayers:
   - rageBelow: 100
     deathMeterWidth: 0
+    killed: 0
   - rageBelow: 61
     deathMeterWidth: 150
+    killed: 1
   - rageBelow: 43
     deathMeterWidth: 200
+    killed: 2
   - rageBelow: 25
     deathMeterWidth: 270
+    killed: 3
   - rageBelow: 0
     deathMeterWidth: 330
+    killed: 4
   happinessIcons:
   - {fileID: 21300000, guid: 35544bd1341452847aadd65c6741a1cd, type: 3}
   - {fileID: 21300000, guid: af3a5397490a24f469d67a53499291d2, type: 3}
   - {fileID: 21300000, guid: a4f1c17b267999a4bac1b3974342cdaa, type: 3}
   - {fileID: 21300000, guid: b7cd9e4895566314693b971129f51f68, type: 3}
   - {fileID: 21300000, guid: 751f1aedfb24fa947b75cc059376856e, type: 3}
-  rageMeter: 100
+  rageMeter: 80
   ragePenaltyIfNoFood: 20
   platePrefab: {fileID: 158625187376389019, guid: c9c63e16f666078469fdc0280eae8229,
     type: 3}
@@ -13297,6 +13319,9 @@ MonoBehaviour:
   timerBackground: {fileID: 1186561650}
   flash: {fileID: 1960405092}
   monster: {fileID: 1988326162}
+  yeetBot: {fileID: 1894074299}
+  bot1: {fileID: 2479269636042769536}
+  bot2: {fileID: 1226529906}
 --- !u!65 &1460824535
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16520,6 +16545,7 @@ GameObject:
   - component: {fileID: 1894074293}
   - component: {fileID: 1894074292}
   - component: {fileID: 1894074291}
+  - component: {fileID: 1894074300}
   m_Layer: 7
   m_Name: YeetBot
   m_TagString: Untagged
@@ -16662,6 +16688,22 @@ MonoBehaviour:
   - {fileID: 1435823863}
   - {fileID: 1003260718}
   feeder: {fileID: 1460824534}
+--- !u!54 &1894074300
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1894074290}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1910423494
 GameObject:
   m_ObjectHideFlags: 0
@@ -19108,6 +19150,7 @@ GameObject:
   - component: {fileID: 2479269636042769538}
   - component: {fileID: 2479269636042769537}
   - component: {fileID: 2479269636042769539}
+  - component: {fileID: 2479269636042769540}
   m_Layer: 7
   m_Name: Bot 1
   m_TagString: Untagged
@@ -19182,6 +19225,22 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!54 &2479269636042769540
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2479269636042769535}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!95 &2479269636103654831
 Animator:
   serializedVersion: 4

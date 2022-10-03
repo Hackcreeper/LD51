@@ -7,5 +7,6 @@ namespace Feeding.Data
     {
         public int rageBelow;
         public int deathMeterWidth;
+        public int killed;
     }
 }

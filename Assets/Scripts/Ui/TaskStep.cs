@@ -21,7 +21,8 @@ namespace Ui
                     break;
                 
                 case TaskState.Done:
-                    // TODO
+                    botImage.SetActive(true);
+                    // TODO: Replace with completed checkmark
                     break;
             }
         }
