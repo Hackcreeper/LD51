@@ -19,7 +19,7 @@ namespace Player
 
         public void InformStationReady()
         {
-            gameObject.SendMessage("StationFinished");
+            gameObject.SendMessage("StationFinished", SendMessageOptions.DontRequireReceiver);
         }
     }
 }

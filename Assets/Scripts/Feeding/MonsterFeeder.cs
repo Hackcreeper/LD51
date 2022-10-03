@@ -2,6 +2,7 @@
 using Cooking;
 using Cooking.Data;
 using Feeding.Data;
+using Ui;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +14,7 @@ namespace Feeding
         public DeathLayer[] deathLayers;
         public Sprite[] happinessIcons;
         [Range(0, 100)] public int rageMeter = 100;
+        public int ragePenaltyIfNoFood = 25;
         public GameObject platePrefab;
         public RectTransform rageMeterBar;
         public RectTransform deathMask;
@@ -20,6 +22,7 @@ namespace Feeding
         public Color[] timerColors;
         public RectTransform timerNeedle;
         public Image timerBackground;
+        public Flash flash;
 
         private float _timeLeft = 10f;
         private bool _gotFed = false;
@@ -33,11 +36,12 @@ namespace Feeding
             }
             
             Debug.Log($"Feeding: {plate.GetMeal().label}");
+            _gotFed = true;
             
             // Determine the rage
             var eatenMeal = GetMealHappinessByMeal(plate.GetMeal());
-            rageMeter = Mathf.Clamp(rageMeter + CalculateRageByHappiness(eatenMeal.happiness), 0, 100);
-            
+            ModifyRageMeter(CalculateRageByHappiness(eatenMeal.happiness));
+
             // Update happiness meters
             foreach (var meal in meals)
             {
@@ -109,6 +113,31 @@ namespace Feeding
 
             var rotationAngle = 359f - (359f / 10f * (10f - _timeLeft));
             timerNeedle.localRotation = Quaternion.Euler(0f, 0f, rotationAngle);
+
+            if (_timeLeft <= 0f)
+            {
+                if (!_gotFed)
+                {
+                    Debug.Log("Time is up. Monster is still hungry");
+                    _timeLeft = 10f;
+                    ModifyRageMeter(-ragePenaltyIfNoFood);
+                    return;
+                }
+                
+                Debug.Log("Time is up. Monster is not hungry");
+                _timeLeft = 10f;
+                _gotFed = false;
+            }
+        }
+
+        private void ModifyRageMeter(int amount)
+        {
+            rageMeter = Mathf.Clamp(rageMeter + amount, 0, 100);
+
+            if (amount < 0)
+            {
+                flash.StartFlash();
+            }
         }
 
         private DeathLayer GetCurrentDeathLayer()
