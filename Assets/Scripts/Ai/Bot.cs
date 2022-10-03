@@ -1,5 +1,4 @@
-﻿using System;
-using Ai.Data;
+﻿using Ai.Data;
 using Ai.Enum;
 using Cooking;
 using Cooking.Enum;
@@ -14,26 +13,27 @@ namespace Ai
         public LayerMask interactableLayerMask;
         public LayerMask entityLayerMask;
 
-        private Player.Player _player;
-        private NavMeshAgent _agent;
-        private Vector3 _startPosition;
 
         private RecipeTask _currentTask;
         private TaskManager _taskManager;
         private TaskProgress _progress;
         private Interactable _currentTarget;
 
+        protected Player.Player Player;
+        protected NavMeshAgent Agent;
+        protected Vector3 StartPosition;
+
         private void Awake()
         {
-            _player = GetComponent<Player.Player>();
+            Player = GetComponent<Player.Player>();
 
-            _agent = GetComponent<NavMeshAgent>();
-            _agent.updateRotation = false;
+            Agent = GetComponent<NavMeshAgent>();
+            Agent.updateRotation = false;
         }
 
         private void Start()
         {
-            _startPosition = transform.position;
+            StartPosition = transform.position;
         }
 
         public void StartTask(RecipeTask task, TaskManager taskManager)
@@ -75,10 +75,10 @@ namespace Ai
 
             Debug.Log($"Found chest: {correctChest.name}");
             _currentTarget = correctChest;
-            _agent.SetDestination(correctChest.standingPosition.position);
+            Agent.SetDestination(correctChest.standingPosition.position);
         }
 
-        private void Update()
+        protected virtual void Update()
         {
             if (_currentTask == null || _progress == TaskProgress.Idle)
             {
@@ -122,35 +122,35 @@ namespace Ai
             var blockedFront = Physics.Raycast(transform.position, transform.forward, out hit, 2f, entityLayerMask);
             if (blockedFront)
             {
-                _agent.Move((transform.position - hit.transform.position) * Time.deltaTime * _agent.speed);
+                Agent.Move((transform.position - hit.transform.position) * Time.deltaTime * Agent.speed);
                 return;
             }
             
             var blockedLeft = Physics.Raycast(transform.position, -transform.right, out hit, 2f, entityLayerMask);
             if (blockedLeft)
             {
-                _agent.Move((transform.position - hit.transform.position) * Time.deltaTime * _agent.speed);
+                Agent.Move((transform.position - hit.transform.position) * Time.deltaTime * Agent.speed);
                 return;
             }
             
             var blockedRight = Physics.Raycast(transform.position, transform.right, out hit, 2f, entityLayerMask);
             if (blockedRight)
             {
-                _agent.Move((transform.position - hit.transform.position) * Time.deltaTime * _agent.speed);
+                Agent.Move((transform.position - hit.transform.position) * Time.deltaTime * Agent.speed);
                 return;
             }
         }
 
         private void HandleTakeIngredient()
         {
-            if (_agent.remainingDistance > 0.1f)
+            if (Agent.remainingDistance > 0.1f)
             {
                 return;
             }
 
             // TODO: Maybe rotate to station??
             // ((BotMovement)_player.GetPlayerMovement()).SetAgentRotation(_currentTarget.transform.position - transform.position);
-            _currentTarget.Interact(_player);
+            _currentTarget.Interact(Player);
 
             switch (_currentTask.station)
             {
@@ -180,12 +180,12 @@ namespace Ai
 
         private void HandleWalkToStation()
         {
-            if (_agent.remainingDistance > 0.1f)
+            if (Agent.remainingDistance > 0.1f)
             {
                 return;
             }
 
-            _currentTarget.Interact(_player);
+            _currentTarget.Interact(Player);
             _progress = _progress == TaskProgress.WalkToStation
                 ? TaskProgress.WaitForProcessing
                 : TaskProgress.WaitForSecondProcessing;
@@ -193,15 +193,15 @@ namespace Ai
 
         private void HandlePutOnPlate()
         {
-            if (_agent.remainingDistance > 0.2f)
+            if (Agent.remainingDistance > 0.2f)
             {
                 return;
             }
 
-            _currentTarget.Interact(_player);
+            _currentTarget.Interact(Player);
             _progress = TaskProgress.Done;
 
-            _agent.destination = _startPosition;
+            Agent.destination = StartPosition;
         }
 
         private void MoveToStationOfType(StationType type)
@@ -240,7 +240,7 @@ namespace Ai
             }
 
             _currentTarget = foundStation;
-            _agent.destination = foundStation.standingTarget.position;
+            Agent.destination = foundStation.standingTarget.position;
         }
 
         private void StationFinished()
@@ -248,7 +248,7 @@ namespace Ai
             var station = ((CookingStation)_currentTarget);
             if (!station.freezePlayer)
             {
-                station.Interact(_player);
+                station.Interact(Player);
             }
 
             // If station was chopping / cooking -> move to next station
@@ -264,7 +264,7 @@ namespace Ai
             var plate = _taskManager.GetDesignatedPlate();
             _currentTarget = plate;
 
-            _agent.SetDestination(plate.transform.position);
+            Agent.SetDestination(plate.transform.position);
             _progress = TaskProgress.PutOnPlate;
         }
     }

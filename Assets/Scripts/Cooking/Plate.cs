@@ -18,6 +18,7 @@ namespace Cooking
         private readonly List<IPickable> _pickableIngredients = new();
         private PickableMeal _placedMeal;
         private Yeeter _yeeter;
+        private bool _preparedForTheYeet;
 
         private void Awake()
         {
@@ -133,7 +134,7 @@ namespace Cooking
             
             IsInteractable = true;
             var slot = target.GetComponent<DeskSlot>();
-            if (!slot)
+            if (!slot || slot.GetType() == typeof(YeetPlatform))
             {
                 return;
             }
@@ -173,5 +174,12 @@ namespace Cooking
 
             return possibleMeals.Contains(meal);
         }
+
+        public void PrepareForYeet()
+        {
+            _preparedForTheYeet = true;
+        }
+
+        public bool IsPreparedForTheYeet() => _preparedForTheYeet;
     }
 }

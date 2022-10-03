@@ -144,5 +144,7 @@ namespace Feeding
         {
             return deathLayers.Last(layer => rageMeter <= layer.rageBelow);
         }
+
+        public float HowMuchTimeLeft() => _timeLeft;
     }
 }

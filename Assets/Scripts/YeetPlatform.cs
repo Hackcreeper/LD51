@@ -1,11 +1,21 @@
-﻿using UnityEngine;
+﻿using Cooking;
+using UnityEngine;
 
-public class YeetPlatform : Interactable
+public class YeetPlatform : DeskSlot
 {
     public Transform yeetTarget;
+    public Transform standingTarget;
 
     public override void Interact(Player.Player player)
     {
+        if (itemOnSlot != null)
+        {
+            itemOnSlot.GetComponent<Plate>().Yeet(yeetTarget.position);
+            itemOnSlot = null;
+            
+            return;
+        }
+        
         var plate = player.GetItemHolder().GetCurrentPlate();
         if (plate == null)
         {
@@ -17,10 +27,6 @@ public class YeetPlatform : Interactable
             return;
         }
 
-        var oldPos = plate.transform.position;
-        player.GetItemHolder().MoveItem(transform, Vector3.zero);
-        plate.transform.position = oldPos;
-        
-        plate.Yeet(yeetTarget.position);
+        base.Interact(player);
     }
 }

@@ -68,5 +68,7 @@ namespace Cooking
         {
             IsInteractable = false;
         }
+
+        public bool IsFree() => itemOnSlot == null;
     }
 }
