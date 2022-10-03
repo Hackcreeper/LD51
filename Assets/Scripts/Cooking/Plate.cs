@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Cooking.Data;
 using UnityEngine;
@@ -11,6 +12,8 @@ namespace Cooking
     {
         public Meal[] meals;
         public DeskSlot initialSlot;
+        public Meal startMeal;
+        public Ingredient startIngredient;
 
         private readonly List<Ingredient> _ingredients = new();
         private readonly List<IPickable> _pickableIngredients = new();
@@ -20,6 +23,20 @@ namespace Cooking
         private void Awake()
         {
             _yeeter = GetComponent<Yeeter>();
+        }
+
+        private void Start()
+        {
+            if (startIngredient == null || startMeal == null)
+            {
+                return;
+            }
+            
+            var meal = Instantiate(startMeal.platePrefab, transform);
+            
+            _placedMeal = meal.GetComponent<PickableMeal>();
+            _ingredients.Add(startIngredient);
+            _placedMeal.SetIngredients(_ingredients.ToArray());
         }
 
         public override void Interact(Player.Player player)

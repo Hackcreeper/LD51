@@ -12,7 +12,7 @@ namespace Cooking
         public void PlaceOnPlate(Transform parent, Vector3 offset)
         {
             transform.SetParent(parent);
-            transform.localPosition = offset;
+            transform.localPosition = offset + new Vector3(0, 0.14f, 0);
             
             normalModel.gameObject.SetActive(false);
             plateModel.gameObject.SetActive(true);
