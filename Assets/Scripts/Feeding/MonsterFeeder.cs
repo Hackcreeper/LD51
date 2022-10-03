@@ -23,6 +23,7 @@ namespace Feeding
         public RectTransform timerNeedle;
         public Image timerBackground;
         public Flash flash;
+        public Monster monster;
 
         private float _timeLeft = 10f;
         private bool _gotFed = false;
@@ -38,6 +39,8 @@ namespace Feeding
             Debug.Log($"Feeding: {plate.GetMeal().label}");
             _gotFed = true;
             
+            monster.Crunch();
+
             // Determine the rage
             var eatenMeal = GetMealHappinessByMeal(plate.GetMeal());
             ModifyRageMeter(CalculateRageByHappiness(eatenMeal.happiness));
