@@ -74,6 +74,19 @@ namespace Ui
             _lastLocked = _active;
         }
 
+        public void MarkUnlocked()
+        {
+            foreach (var image in recipes[_lastLocked].colorizeWhenLocked)
+            {
+                image.color = Color.white;
+            }
+
+            foreach (var step in recipes[_lastLocked].steps)
+            {
+                step.UpdateState(TaskState.Normal);
+            }
+        }
+
         public void SetTaskStateOfLocked(int task, TaskState state)
         {
             recipes[_lastLocked].steps[task].UpdateState(state);

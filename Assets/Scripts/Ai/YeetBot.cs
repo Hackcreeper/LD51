@@ -2,6 +2,7 @@
 using Ai.Enum;
 using Cooking;
 using Feeding;
+using UnityEngine;
 
 namespace Ai
 {
@@ -13,9 +14,12 @@ namespace Ai
         private YeetBotState _yeetState = YeetBotState.Waiting;
         private Plate _targetPlate;
         private YeetPlatform _targetYeet;
+        private float _yeetDelay;
 
         protected override void Update()
         {
+            _yeetDelay -= Time.deltaTime;
+            
             switch (_yeetState)
             {
                 case YeetBotState.Waiting:
@@ -39,7 +43,7 @@ namespace Ai
         private void HandleWaiting()
         {
             var mealToYeet = yeetPlatforms.FirstOrDefault(platform => !platform.IsFree());
-            if (mealToYeet && feeder.HowMuchTimeLeft() < 2f)
+            if (mealToYeet && feeder.HowMuchTimeLeft() < 2f && _yeetDelay <= 0f)
             {
                 Agent.SetDestination(mealToYeet.transform.position);
                 _targetYeet = mealToYeet;
@@ -107,6 +111,7 @@ namespace Ai
 
             _targetYeet.Interact(Player);
             _yeetState = YeetBotState.Waiting;
+            _yeetDelay = 5f;
 
             Agent.SetDestination(StartPosition);
         }

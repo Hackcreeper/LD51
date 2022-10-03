@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Ai.Data;
 using Cooking;
@@ -87,6 +88,35 @@ namespace Ai
 
             _designatedPlate = plates.First(plate => plate.IsEmpty());
             return _designatedPlate;
+        }
+
+        private void Update()
+        {
+            if (_designatedPlate == null || _ongoingTasks.Count == 0)
+            {
+                return;
+            }
+
+            var pickableMeal = _designatedPlate.GetPickableMeal();
+            if (!pickableMeal)
+            {
+                return;
+            }
+
+            if (pickableMeal.IsComplete())
+            {
+                // UNLOCK IN UI
+                recipePreview.MarkUnlocked();
+                
+                // Clear ongoing tasks
+                _ongoingTasks.Clear();
+                
+                // Clear designated plate
+                _designatedPlate = null;
+                
+                // Clear locked meal
+                _lockedMeal = null;
+            }
         }
     }
 }
