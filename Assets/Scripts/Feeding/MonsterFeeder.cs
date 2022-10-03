@@ -3,6 +3,7 @@ using Cooking;
 using Cooking.Data;
 using Feeding.Data;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Feeding
 {
@@ -16,6 +17,12 @@ namespace Feeding
         public RectTransform rageMeterBar;
         public RectTransform deathMask;
         public int rageMeterMaxWidth = 310;
+        public Color[] timerColors;
+        public RectTransform timerNeedle;
+        public Image timerBackground;
+
+        private float _timeLeft = 10f;
+        private bool _gotFed = false;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -86,6 +93,22 @@ namespace Feeding
                 Mathf.Lerp(deathMaskSize.x, layer.deathMeterWidth, 10f * Time.deltaTime),
                 deathMaskSize.y
             );
+
+            _timeLeft -= Time.deltaTime;
+            var index = 0;
+            if (_timeLeft > 2f) index++;
+            if (_timeLeft > 4f) index++;
+            if (_timeLeft > 6f) index++;
+            if (_timeLeft > 8f) index++;
+
+            timerBackground.color = Color.Lerp(
+                timerBackground.color,
+                timerColors[index],
+                10f * Time.deltaTime
+            );
+
+            var rotationAngle = 359f - (359f / 10f * (10f - _timeLeft));
+            timerNeedle.localRotation = Quaternion.Euler(0f, 0f, rotationAngle);
         }
 
         private DeathLayer GetCurrentDeathLayer()
