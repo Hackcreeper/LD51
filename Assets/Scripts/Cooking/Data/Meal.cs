@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Ai.Data;
+using UnityEngine;
 
 namespace Cooking.Data
 {
@@ -9,5 +10,6 @@ namespace Cooking.Data
         public Ingredient[] ingredients;
         public GameObject platePrefab;
         public bool needsBaking;
+        public RecipeTask[] tasks;
     }
 }

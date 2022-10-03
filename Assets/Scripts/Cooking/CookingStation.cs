@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Cooking.Data;
+using Cooking.Enum;
 using UnityEngine;
 
 namespace Cooking
@@ -10,6 +11,7 @@ namespace Cooking
         public Animator animator;
         public bool freezePlayer;
         public Transform itemTarget;
+        public StationType type;
 
         protected Player.Player TmpPlayer;
         protected Ingredient TmpOutput;

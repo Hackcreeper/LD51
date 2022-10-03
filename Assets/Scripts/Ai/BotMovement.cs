@@ -1,13 +1,12 @@
 ﻿using Player;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Serialization;
 
 namespace Ai
 {
     public class BotMovement : PlayerMovement
     {
-        private Vector3 _targetRotation;
+        private Vector3 _agentRotation;
         
         protected override void Update()
         {
@@ -17,11 +16,11 @@ namespace Ai
         
             if (vec3.magnitude > 0.1f)
             {
-                _targetRotation = vec3;
+                _agentRotation = vec3;
             }
         
             var originalRotation = childModel.rotation;
-            childModel.LookAt(transform.position + _targetRotation);
+            childModel.LookAt(transform.position + _agentRotation);
             var newRotation = childModel.rotation;
             childModel.rotation = Quaternion.Lerp(originalRotation, newRotation, smoothRotationFactor * Time.deltaTime);
             
@@ -30,12 +29,6 @@ namespace Ai
                 childModel.rotation.eulerAngles.y,
                 0
             );
-            
-            // childModel.rotation = Quaternion.Euler(
-            //     0,
-            //     Mathf.Lerp(childModel.rotation.eulerAngles.y, _targetRotationY, smoothRotationFactor * Time.deltaTime),
-            //     0
-            // );
         }
     }
 }

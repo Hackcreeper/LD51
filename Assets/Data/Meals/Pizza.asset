@@ -21,3 +21,10 @@ MonoBehaviour:
   platePrefab: {fileID: 874729523498666435, guid: c02ab8161e0ba2f4fb086c71581db639,
     type: 3}
   needsBaking: 1
+  tasks:
+  - ingredient: {fileID: 11400000, guid: c68abf63fd179a840a59cd45e0b3b4d9, type: 2}
+    station: 2
+  - ingredient: {fileID: 11400000, guid: 1276fa95ce22f37439dcf89f21a4250d, type: 2}
+    station: 4
+  - ingredient: {fileID: 11400000, guid: fc801ae10302c704db12aeb3937163c8, type: 2}
+    station: 3
