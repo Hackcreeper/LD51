@@ -62,5 +62,10 @@ namespace Player
         {
             _frozen = false;
         }
+
+        public void OnControlsChanged(PlayerInput i)
+        {
+            // TODO: Update tooltip
+        }
     }
 }

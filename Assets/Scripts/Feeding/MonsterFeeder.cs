@@ -9,10 +9,12 @@ namespace Feeding
     public class MonsterFeeder : MonoBehaviour
     {
         public MealHappiness[] meals;
+        public DeathLayer[] deathLayers;
         public Sprite[] happinessIcons;
         [Range(0, 100)] public int rageMeter = 100;
         public GameObject platePrefab;
         public RectTransform rageMeterBar;
+        public RectTransform deathMask;
         public int rageMeterMaxWidth = 310;
 
         private void OnTriggerEnter(Collider other)
@@ -76,6 +78,19 @@ namespace Feeding
                 Mathf.Lerp(size.x, rageMeterMaxWidth / 100f * rageMeter, 10f * Time.deltaTime),
                 size.y
             );
+
+            var layer = GetCurrentDeathLayer();
+            var deathMaskSize = deathMask.sizeDelta;
+
+            deathMask.sizeDelta = new Vector2(
+                Mathf.Lerp(deathMaskSize.x, layer.deathMeterWidth, 10f * Time.deltaTime),
+                deathMaskSize.y
+            );
+        }
+
+        private DeathLayer GetCurrentDeathLayer()
+        {
+            return deathLayers.Last(layer => rageMeter <= layer.rageBelow);
         }
     }
 }
