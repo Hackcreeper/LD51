@@ -42,6 +42,7 @@ namespace Cooking
 
         public override void Interact(Player.Player player)
         {
+            Debug.Log(IsInteractable);
             if (player.GetItemHolder().IsEmpty())
             {
                 player.GetItemHolder().PickPlate(this);
@@ -162,10 +163,14 @@ namespace Cooking
 
         public void Yeet(Vector3 target)
         {
-            IsInteractable = false;
             _yeeter.StartTheYeet(target);
         }
 
+        public void PlacedOnYeetPlatform()
+        {
+            IsInteractable = false;
+        }
+        
         public bool IsEmpty()
         {
             return _ingredients.Count == 0;

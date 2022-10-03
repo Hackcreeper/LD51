@@ -10,6 +10,7 @@ public class YeetPlatform : DeskSlot
     {
         if (itemOnSlot != null)
         {
+            Debug.Log("Feel the yeet");
             itemOnSlot.GetComponent<Plate>().Yeet(yeetTarget.position);
             itemOnSlot = null;
             
@@ -26,7 +27,9 @@ public class YeetPlatform : DeskSlot
         {
             return;
         }
-
+        
         base.Interact(player);
+        
+        plate.PlacedOnYeetPlatform();
     }
 }
