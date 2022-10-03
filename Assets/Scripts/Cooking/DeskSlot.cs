@@ -25,7 +25,7 @@ namespace Cooking
                         return;
                     }
 
-                    var spawnedPickable = player.GetItemHolder().MoveItem(transform, Vector3.zero);
+                    var spawnedPickable = player.GetItemHolder().MoveItem(transform, new Vector3(0, .8f, 0));
                     player.GetItemHolder().PickIngredient(itemOnSlot.GetComponent<PickableIngredient>().ingredient);
                     
                     Destroy(itemOnSlot.gameObject);
@@ -44,7 +44,7 @@ namespace Cooking
                         return;
                     }
                     
-                    var spawnedPickable = player.GetItemHolder().MoveItem(transform, Vector3.zero);
+                    var spawnedPickable = player.GetItemHolder().MoveItem(transform, new Vector3(0, .8f, 0));
                     player.GetItemHolder().PickPlate(itemOnSlot.GetComponent<Plate>());
                     
                     itemOnSlot = ((MonoBehaviour)spawnedPickable).transform;
@@ -53,7 +53,7 @@ namespace Cooking
                 }
             }
             
-            var pickable = player.GetItemHolder().MoveItem(transform, Vector3.zero);
+            var pickable = player.GetItemHolder().MoveItem(transform, new Vector3(0, .8f, 0));
             itemOnSlot = ((MonoBehaviour)pickable)?.transform;
         }
 
