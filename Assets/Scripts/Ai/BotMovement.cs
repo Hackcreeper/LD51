@@ -1,38 +1,41 @@
 ﻿using Player;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Serialization;
 
 namespace Ai
 {
     public class BotMovement : PlayerMovement
     {
-        public float idleRotation = -120;
-        public float stationRotation = 72;
+        private Vector3 _targetRotation;
         
-        private float _targetRotationY;
-
-        private void Start()
-        {
-            _targetRotationY = childModel.rotation.eulerAngles.y;
-        }
-
         protected override void Update()
         {
+            var agent = GetComponent<NavMeshAgent>();
+            
+            var vec3 = agent.velocity.normalized;
+        
+            if (vec3.magnitude > 0.1f)
+            {
+                _targetRotation = vec3;
+            }
+        
+            var originalRotation = childModel.rotation;
+            childModel.LookAt(transform.position + _targetRotation);
+            var newRotation = childModel.rotation;
+            childModel.rotation = Quaternion.Lerp(originalRotation, newRotation, smoothRotationFactor * Time.deltaTime);
+            
             childModel.rotation = Quaternion.Euler(
                 0,
-                Mathf.Lerp(childModel.rotation.eulerAngles.y, _targetRotationY, smoothRotationFactor * Time.deltaTime),
+                childModel.rotation.eulerAngles.y,
                 0
             );
-        }
-
-        public void RotateToStation()
-        {
-            _targetRotationY = stationRotation;
-        }
-        
-        public void RotateToIdle()
-        {
-            _targetRotationY = idleRotation;
+            
+            // childModel.rotation = Quaternion.Euler(
+            //     0,
+            //     Mathf.Lerp(childModel.rotation.eulerAngles.y, _targetRotationY, smoothRotationFactor * Time.deltaTime),
+            //     0
+            // );
         }
     }
 }

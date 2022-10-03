@@ -2,6 +2,7 @@
 using Cooking;
 using Player;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Ai
 {
@@ -9,6 +10,7 @@ namespace Ai
     public class Bot : Interactable
     {
         public CookingStation assignedStation;
+        public Transform navMeshTarget;
         
         private Player.Player _player;
 
@@ -19,7 +21,15 @@ namespace Ai
 
         private void Start()
         {
-            assignedStation.AttachBot();
+            // assignedStation.AttachBot();
+        }
+
+        private void Update()
+        {
+            var agent = GetComponent<NavMeshAgent>();
+            agent.updateRotation = false;
+            agent.destination = navMeshTarget.position; 
+
         }
 
         public override void Interact(Player.Player player)
@@ -38,7 +48,7 @@ namespace Ai
             _player.GetItemHolder().PickIngredient(player.GetItemHolder().GetCurrentIngredient());
             player.GetItemHolder().RemoveCurrent();
             
-            ((BotMovement)_player.GetPlayerMovement()).RotateToStation();
+            // ((BotMovement)_player.GetPlayerMovement()).RotateToStation();
             
             assignedStation.Interact(_player);
         }
