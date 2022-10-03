@@ -12,6 +12,7 @@ namespace Cooking
         public bool freezePlayer;
         public Transform itemTarget;
         public StationType type;
+        public Transform standingTarget;
 
         protected Player.Player TmpPlayer;
         protected Ingredient TmpOutput;
@@ -103,13 +104,12 @@ namespace Cooking
                 Destroy(PlacedItem.gameObject);
                 TmpPlayer.GetItemHolder().PickIngredient(TmpOutput, true);
                 TmpPlayer.GetPlayerMovement().UnFreeze();
+                TmpPlayer.InformStationReady();
                 TmpOutput = null;
                 TmpPlayer = null;
 
                 return;
             }
-            
-            TmpPlayer = null;
             
             var instance = Instantiate(TmpOutput.pickupPrefab);
             instance.transform.position = PlacedItem.position;
@@ -118,6 +118,9 @@ namespace Cooking
             
             Destroy(PlacedItem.gameObject);
             PlacedItem = instance.transform;
+            
+            TmpPlayer.InformStationReady();
+            TmpPlayer = null;
         }
 
         public void AttachBot()

@@ -30,5 +30,10 @@ namespace Ai
                 0
             );
         }
+
+        public void SetAgentRotation(Vector3 rotation)
+        {
+            _agentRotation = rotation;
+        }
     }
 }

@@ -161,5 +161,17 @@ namespace Cooking
             IsInteractable = false;
             _yeeter.StartTheYeet(target);
         }
+
+        public bool IsEmpty()
+        {
+            return _ingredients.Count == 0;
+        }
+
+        public bool CanBuildMeal(Meal meal)
+        {
+            var possibleMeals = (from m in meals let worked = _ingredients.All(ingredient => m.ingredients.Contains(ingredient)) where worked select m).ToList();
+
+            return possibleMeals.Contains(meal);
+        }
     }
 }

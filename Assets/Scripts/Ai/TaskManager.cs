@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Ai.Data;
+using Cooking;
 using Cooking.Data;
 using Ui;
 using Ui.Enum;
@@ -15,6 +17,7 @@ namespace Ai
 
         private Meal _lockedMeal = null;
         private List<OngoingTask> _ongoingTasks = new List<OngoingTask>();
+        private Plate _designatedPlate;
 
         public void LockCurrentMeal(InputAction.CallbackContext context)
         {
@@ -49,6 +52,41 @@ namespace Ai
                 bot.StartTask(task, this);
                 recipePreview.SetTaskStateOfLocked(i, TaskState.Bot);
             }
+        }
+
+        public Plate GetDesignatedPlate()
+        {
+            if (_designatedPlate)
+            {
+                return _designatedPlate;
+            }
+            
+            // Search for all plates in the game
+            var plates = GameObject.FindObjectsOfType<Plate>();
+            foreach (var nonEmptyPlate in plates.Where(plate => !plate.IsEmpty()))
+            {
+                if (nonEmptyPlate.GetMeal() != _lockedMeal)
+                {
+                    continue;
+                }
+                
+                _designatedPlate = nonEmptyPlate;
+                return _designatedPlate;
+            }
+            
+            foreach (var nonEmptyPlate in plates.Where(plate => !plate.IsEmpty()))
+            {
+                if (!nonEmptyPlate.CanBuildMeal(_lockedMeal))
+                {
+                    continue;
+                }
+                
+                _designatedPlate = nonEmptyPlate;
+                return _designatedPlate;
+            }
+
+            _designatedPlate = plates.First(plate => plate.IsEmpty());
+            return _designatedPlate;
         }
     }
 }

@@ -12,9 +12,11 @@ namespace Ai
     public class Bot : MonoBehaviour
     {
         public LayerMask interactableLayerMask;
-        
+        public LayerMask entityLayerMask;
+
         private Player.Player _player;
         private NavMeshAgent _agent;
+        private Vector3 _startPosition;
 
         private RecipeTask _currentTask;
         private TaskManager _taskManager;
@@ -29,6 +31,11 @@ namespace Ai
             _agent.updateRotation = false;
         }
 
+        private void Start()
+        {
+            _startPosition = transform.position;
+        }
+
         public void StartTask(RecipeTask task, TaskManager taskManager)
         {
             Debug.Log($"Doing task: {task.ingredient.label} ({task.station.ToString()})");
@@ -37,11 +44,11 @@ namespace Ai
             _currentTask = task;
             _taskManager = taskManager;
             _progress = TaskProgress.TakeIngredient;
-            
+
             // Search to the correct ingredient chest
             var results = new Collider[50];
             var found = Physics.OverlapSphereNonAlloc(transform.position, 100f, results, interactableLayerMask);
-            
+
             IngredientChest correctChest = null;
             for (var i = 0; i < found; i++)
             {
@@ -65,7 +72,7 @@ namespace Ai
                 Debug.LogError("No ingredient chest found for: " + task.ingredient.label);
                 return;
             }
-            
+
             Debug.Log($"Found chest: {correctChest.name}");
             _currentTarget = correctChest;
             _agent.SetDestination(correctChest.standingPosition.position);
@@ -77,12 +84,60 @@ namespace Ai
             {
                 return;
             }
-            
+
+            CheckRaycasts();
+
             switch (_progress)
             {
                 case TaskProgress.TakeIngredient:
                     HandleTakeIngredient();
                     break;
+
+                case TaskProgress.WalkToStation:
+                    HandleWalkToStation();
+                    break;
+
+                case TaskProgress.WalkToSecondStation:
+                    HandleWalkToStation();
+                    break;
+
+                case TaskProgress.PutOnPlate:
+                    HandlePutOnPlate();
+                    break;
+
+                case TaskProgress.Done:
+                case TaskProgress.WaitForProcessing:
+                case TaskProgress.WaitForSecondProcessing:
+                    break;
+
+                default:
+                    Debug.LogWarning("Unhandled: " + _progress);
+                    break;
+            }
+        }
+
+        private void CheckRaycasts()
+        {
+            RaycastHit hit;
+            var blockedFront = Physics.Raycast(transform.position, transform.forward, out hit, 2f, entityLayerMask);
+            if (blockedFront)
+            {
+                _agent.Move((transform.position - hit.transform.position) * Time.deltaTime * _agent.speed);
+                return;
+            }
+            
+            var blockedLeft = Physics.Raycast(transform.position, -transform.right, out hit, 2f, entityLayerMask);
+            if (blockedLeft)
+            {
+                _agent.Move((transform.position - hit.transform.position) * Time.deltaTime * _agent.speed);
+                return;
+            }
+            
+            var blockedRight = Physics.Raycast(transform.position, transform.right, out hit, 2f, entityLayerMask);
+            if (blockedRight)
+            {
+                _agent.Move((transform.position - hit.transform.position) * Time.deltaTime * _agent.speed);
+                return;
             }
         }
 
@@ -92,7 +147,9 @@ namespace Ai
             {
                 return;
             }
-            
+
+            // TODO: Maybe rotate to station??
+            // ((BotMovement)_player.GetPlayerMovement()).SetAgentRotation(_currentTarget.transform.position - transform.position);
             _currentTarget.Interact(_player);
 
             switch (_currentTask.station)
@@ -100,9 +157,51 @@ namespace Ai
                 case StationType.Cutting:
                     MoveToStationOfType(StationType.Cutting);
                     break;
+
+                case StationType.None:
+                    // TODO: Move back to plate
+                    break;
+
+                case StationType.Oven:
+                    MoveToStationOfType(StationType.Oven);
+                    break;
+
+                case StationType.Stove:
+                    MoveToStationOfType(StationType.Stove);
+                    break;
+
+                case StationType.CuttingAndStove:
+                    MoveToStationOfType(StationType.Cutting);
+                    break;
             }
-            
+
             _progress = TaskProgress.WalkToStation;
+        }
+
+        private void HandleWalkToStation()
+        {
+            if (_agent.remainingDistance > 0.1f)
+            {
+                return;
+            }
+
+            _currentTarget.Interact(_player);
+            _progress = _progress == TaskProgress.WalkToStation
+                ? TaskProgress.WaitForProcessing
+                : TaskProgress.WaitForSecondProcessing;
+        }
+
+        private void HandlePutOnPlate()
+        {
+            if (_agent.remainingDistance > 0.2f)
+            {
+                return;
+            }
+
+            _currentTarget.Interact(_player);
+            _progress = TaskProgress.Done;
+
+            _agent.destination = _startPosition;
         }
 
         private void MoveToStationOfType(StationType type)
@@ -112,7 +211,7 @@ namespace Ai
 
             var distance = float.MaxValue;
             CookingStation foundStation = null;
-            
+
             for (var i = 0; i < found; i++)
             {
                 var station = results[i].GetComponent<CookingStation>();
@@ -140,7 +239,33 @@ namespace Ai
                 return;
             }
 
-            _agent.destination = foundStation.transform.position;
+            _currentTarget = foundStation;
+            _agent.destination = foundStation.standingTarget.position;
+        }
+
+        private void StationFinished()
+        {
+            var station = ((CookingStation)_currentTarget);
+            if (!station.freezePlayer)
+            {
+                station.Interact(_player);
+            }
+
+            // If station was chopping / cooking -> move to next station
+            // otherwise move to plate
+            if (_currentTask.station == StationType.CuttingAndStove &&
+                _progress != TaskProgress.WaitForSecondProcessing)
+            {
+                MoveToStationOfType(StationType.Stove);
+                _progress = TaskProgress.WalkToSecondStation;
+                return;
+            }
+
+            var plate = _taskManager.GetDesignatedPlate();
+            _currentTarget = plate;
+
+            _agent.SetDestination(plate.transform.position);
+            _progress = TaskProgress.PutOnPlate;
         }
     }
 }

@@ -16,5 +16,10 @@ namespace Player
 
         public ItemHolder GetItemHolder() => _itemHolder;
         public PlayerMovement GetPlayerMovement() => _playerMovement;
+
+        public void InformStationReady()
+        {
+            gameObject.SendMessage("StationFinished");
+        }
     }
 }
