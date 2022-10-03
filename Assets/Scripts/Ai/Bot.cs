@@ -230,17 +230,19 @@ namespace Ai
                     continue;
                 }
 
-                if (station.type != type)
+                if (station.type != type || station.IsBlockedByBot())
                 {
                     continue;
                 }
 
                 var dis = Vector3.Distance(transform.position, station.transform.position);
-                if (dis < distance)
+                if (!(dis < distance))
                 {
-                    distance = dis;
-                    foundStation = station;
+                    continue;
                 }
+                
+                distance = dis;
+                foundStation = station;
             }
 
             if (!foundStation)
@@ -250,6 +252,7 @@ namespace Ai
             }
 
             _currentTarget = foundStation;
+            foundStation.BlockByBot();
             Agent.destination = foundStation.standingTarget.position;
         }
 
@@ -260,6 +263,8 @@ namespace Ai
             {
                 station.Interact(Player);
             }
+            
+            station.UnblockByBot();
 
             // If station was chopping / cooking -> move to next station
             // otherwise move to plate
@@ -287,6 +292,11 @@ namespace Ai
             if (_taskManager != null)
             {
                 _taskManager.MarkKilled(this);
+            }
+
+            if (_currentTarget != null && _currentTarget.GetType() == typeof(CookingStation))
+            {
+                ((CookingStation)_currentTarget).UnblockByBot();
             }
 
             Player.GetPlayerMovement().enabled = false;

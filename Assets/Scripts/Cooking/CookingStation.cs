@@ -21,6 +21,8 @@ namespace Cooking
         
         protected static readonly int Working = Animator.StringToHash("working");
 
+        private bool _blockedByBot;
+        
         public override void Interact(Player.Player player)
         {
             if (IsWorking)
@@ -123,9 +125,16 @@ namespace Cooking
             TmpPlayer = null;
         }
 
-        public void AttachBot()
+        public void BlockByBot()
         {
-            IsInteractable = false;
+            _blockedByBot = true;
         }
+
+        public void UnblockByBot()
+        {
+            _blockedByBot = false;
+        }
+
+        public bool IsBlockedByBot() => _blockedByBot;
     }
 }
