@@ -48,7 +48,7 @@ namespace Ai
             }
 
             var finishedPlate = FindObjectsOfType<Plate>()
-                .Where(plate => plate.GetPickableMeal() != null && !plate.IsPreparedForTheYeet())
+                .Where(plate => plate.GetPickableMeal() != null && !plate.IsPreparedForTheYeet() && !plate.IsPickedUp())
                 .FirstOrDefault(plate => plate.GetPickableMeal().IsReadyToDeliver());
 
             if (!finishedPlate)
@@ -63,7 +63,13 @@ namespace Ai
 
         private void HandlePickingUpPlate()
         {
-            // TODO: WHAT IF PLATE WAS PICKED UP BY ME?
+            if (_targetPlate.IsPickedUp())
+            {
+                Agent.SetDestination(StartPosition);
+                _targetPlate = null;
+                _yeetState = YeetBotState.Waiting;
+                return;
+            }
             
             if (Agent.remainingDistance > 0.5f)
             {

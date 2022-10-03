@@ -45,6 +45,7 @@ namespace Player
 
             plate.transform.SetParent(model);
             plate.transform.localPosition = target.localPosition;
+            plate.SetPickedUp(true);
             _currentItem = plate.GetComponent<IPickable>();
             animator.SetBool(Holding, true);
             

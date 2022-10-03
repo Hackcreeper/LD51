@@ -19,6 +19,7 @@ namespace Cooking
         private PickableMeal _placedMeal;
         private Yeeter _yeeter;
         private bool _preparedForTheYeet;
+        private bool _pickedUp;
 
         private void Awake()
         {
@@ -133,6 +134,8 @@ namespace Cooking
             }
             
             IsInteractable = true;
+            _pickedUp = false;
+            
             var slot = target.GetComponent<DeskSlot>();
             if (!slot || slot.GetType() == typeof(YeetPlatform))
             {
@@ -181,5 +184,12 @@ namespace Cooking
         }
 
         public bool IsPreparedForTheYeet() => _preparedForTheYeet;
+
+        public void SetPickedUp(bool pickedUp)
+        {
+            _pickedUp = pickedUp;
+        }
+
+        public bool IsPickedUp() => _pickedUp;
     }
 }
