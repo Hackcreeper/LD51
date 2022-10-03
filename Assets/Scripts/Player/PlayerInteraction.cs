@@ -54,7 +54,7 @@ namespace Player
                     return closest;
                 }
 
-                var distance = Vector3.Distance(transform.position, interactable.transform.position);
+                var distance = Vector3.Distance(transform.position, interactable.GetComponent<Collider>().bounds.center);
                 if (distance < closestDistance && interactable.CanInteract())
                 {
                     closestDistance = distance;
