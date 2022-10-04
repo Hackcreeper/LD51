@@ -101,6 +101,11 @@ namespace Feeding
 
         private void Update()
         {
+            if (!GameState.Started)
+            { 
+                return;
+            }
+            
             var size = rageMeterBar.sizeDelta;
 
             rageMeterBar.sizeDelta = new Vector2(

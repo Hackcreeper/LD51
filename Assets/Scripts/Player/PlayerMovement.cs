@@ -22,7 +22,7 @@ namespace Player
 
         protected virtual void Update()
         {
-            if (_frozen)
+            if (_frozen || !GameState.Started)
             {
                 return;
             }

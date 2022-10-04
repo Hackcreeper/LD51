@@ -21,7 +21,7 @@ namespace Ai
 
         public void LockCurrentMeal(InputAction.CallbackContext context)
         {
-            if (!context.performed || _lockedMeal)
+            if (!context.performed || _lockedMeal || !GameState.Started)
             {
                 return;
             }

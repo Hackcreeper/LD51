@@ -20,6 +20,11 @@ namespace Player
 
         private void Update()
         {
+            if (!GameState.Started)
+            {
+                return;
+            }
+            
             var closest = FindClosest();
             if (closest == _currentlySelected)
             {
@@ -67,7 +72,7 @@ namespace Player
         
         public void OnInteract(InputAction.CallbackContext context)
         {
-            if (!context.performed || !_currentlySelected)
+            if (!context.performed || !_currentlySelected || !GameState.Started) 
             {
                 return;
             }

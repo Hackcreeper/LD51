@@ -85,6 +85,11 @@ namespace Ai
 
         protected virtual void Update()
         {
+            if (!GameState.Started)
+            {
+                return;
+            }
+            
             if (Sucked)
             {
                 transform.position = Vector3.Lerp(
