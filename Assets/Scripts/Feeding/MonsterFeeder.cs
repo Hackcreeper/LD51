@@ -28,6 +28,7 @@ namespace Feeding
         public YeetBot yeetBot;
         public Bot bot1;
         public Bot bot2;
+        public GameObject gameOver;
 
         private float _timeLeft = 10f;
         private bool _gotFed = false;
@@ -190,8 +191,9 @@ namespace Feeding
                 bot1.GetSucked(transform.position);
                 return;
             }
-            
-            Debug.Log("GAME OVER");
+
+            GameState.Started = false;  
+            gameOver.SetActive(true);
         }
 
         private DeathLayer GetCurrentDeathLayer()
