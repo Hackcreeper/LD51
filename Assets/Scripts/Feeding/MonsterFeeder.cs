@@ -158,6 +158,7 @@ namespace Feeding
             }
             
             flash.StartFlash();
+            monster.Play();
 
             if (GetCurrentDeathLayer().killed <= _killed)
             {

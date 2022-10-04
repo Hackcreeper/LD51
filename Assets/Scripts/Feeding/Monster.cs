@@ -3,16 +3,23 @@ using UnityEngine;
 
 namespace Feeding
 {
-    [RequireComponent(typeof(Animator))]
+    [RequireComponent(typeof(Animator), typeof(AudioSource))]
     public class Monster : MonoBehaviour
     {
         private Animator _animator;
+        private AudioSource _audioSource;
         private static readonly int Crunching = Animator.StringToHash("crunching");
         private static readonly int Sucking = Animator.StringToHash("sucking");
 
         private void Awake()
         {
             _animator = GetComponent<Animator>();
+            _audioSource = GetComponent<AudioSource>();
+        }
+
+        public void Play()
+        {
+            _audioSource.Play();
         }
 
         public void Crunch()

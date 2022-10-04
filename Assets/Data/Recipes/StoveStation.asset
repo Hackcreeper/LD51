@@ -17,13 +17,17 @@ MonoBehaviour:
     output: {fileID: 11400000, guid: fc3a3efeb939a7b458bd5efec0b75e7f, type: 2}
     replacementPrefab: {fileID: 4934483418392524649, guid: 8752372e30f8cda43aede33f99170c2f,
       type: 3}
+    audioClip: {fileID: 0}
   - input: {fileID: 11400000, guid: 16951c732ab15d640853e7091fd7b577, type: 2}
     output: {fileID: 11400000, guid: 215b74c6fd35ed54881138dfe9621eb8, type: 2}
     replacementPrefab: {fileID: 0}
+    audioClip: {fileID: 0}
   - input: {fileID: 11400000, guid: d0baa2f362d9e0b4aaa1bb7f16e035a1, type: 2}
     output: {fileID: 11400000, guid: ad19aa8dd7c56b84c91422146a933779, type: 2}
     replacementPrefab: {fileID: 4934483418392524649, guid: fdff36adebe18e74da7688f807286f8e,
       type: 3}
+    audioClip: {fileID: 8300000, guid: 76c5f7480a0a42d41b7d3d3668d2a66e, type: 3}
   - input: {fileID: 11400000, guid: c68abf63fd179a840a59cd45e0b3b4d9, type: 2}
     output: {fileID: 11400000, guid: 699543ea03c166249b1944567c0e201e, type: 2}
     replacementPrefab: {fileID: 0}
+    audioClip: {fileID: 8300000, guid: 76c5f7480a0a42d41b7d3d3668d2a66e, type: 3}

@@ -1,10 +1,12 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Cooking.Data;
 using Cooking.Enum;
 using UnityEngine;
 
 namespace Cooking
 {
+    [RequireComponent(typeof(AudioSource))]
     public class CookingStation : Interactable
     {
         public RecipeBook recipeBook;
@@ -22,7 +24,13 @@ namespace Cooking
         protected static readonly int Working = Animator.StringToHash("working");
 
         private bool _blockedByBot;
-        
+        private AudioSource _audioSource;
+
+        private void Awake()
+        {
+            _audioSource = GetComponent<AudioSource>();
+        }
+
         public override void Interact(Player.Player player)
         {
             if (IsWorking)
@@ -87,6 +95,12 @@ namespace Cooking
                 player.GetPlayerMovement().Freeze();
             }
 
+            if (recipe.audioClip)
+            {
+                _audioSource.clip = recipe.audioClip;
+                _audioSource.Play();
+            }
+            
             animator.SetBool(Working, true);
             IsWorking = true;
         }

@@ -7,16 +7,18 @@ using UnityEngine.AI;
 
 namespace Ai
 {
-    [RequireComponent(typeof(Player.Player), typeof(NavMeshAgent))]
+    [RequireComponent(typeof(Player.Player), typeof(NavMeshAgent), typeof(AudioSource))]
     public class Bot : MonoBehaviour
     {
         public LayerMask interactableLayerMask;
         public LayerMask entityLayerMask;
+        public AudioClip[] screamClips;
         
         private RecipeTask _currentTask;
         private TaskManager _taskManager;
         private TaskProgress _progress;
         private Interactable _currentTarget;
+        private AudioSource _audioSource;
 
         protected Player.Player Player;
         protected NavMeshAgent Agent;
@@ -30,6 +32,8 @@ namespace Ai
 
             Agent = GetComponent<NavMeshAgent>();
             Agent.updateRotation = false;
+
+            _audioSource = GetComponent<AudioSource>();
         }
 
         private void Start()
@@ -285,6 +289,9 @@ namespace Ai
 
         public void GetSucked(Vector3 target)
         {
+            _audioSource.clip = screamClips[Random.Range(0, screamClips.Length)];
+            _audioSource.Play();
+            
             Sucked = true;
             SuckTarget = target;
             

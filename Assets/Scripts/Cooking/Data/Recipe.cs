@@ -9,5 +9,6 @@ namespace Cooking.Data
         public Ingredient input;
         public Ingredient output;
         public GameObject replacementPrefab;
+        public AudioClip audioClip;
     }
 }
