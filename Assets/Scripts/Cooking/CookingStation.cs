@@ -2,6 +2,7 @@
 using System.Linq;
 using Cooking.Data;
 using Cooking.Enum;
+using Ui;
 using UnityEngine;
 
 namespace Cooking
@@ -15,6 +16,7 @@ namespace Cooking
         public Transform itemTarget;
         public StationType type;
         public Transform standingTarget;
+        public Tutorial tutorial;
 
         protected Player.Player TmpPlayer;
         protected Ingredient TmpOutput;
@@ -63,7 +65,7 @@ namespace Cooking
             {
                 return;
             }
-
+            
             var oldOutput = TmpOutput;
             var oldPlacedItem = PlacedItem;
             

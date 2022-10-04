@@ -1,3 +1,4 @@
+using Ui;
 using UnityEngine;
 
 public class GameState : MonoBehaviour
@@ -5,11 +6,12 @@ public class GameState : MonoBehaviour
     public static bool Started = false;
 
     public GameObject mainMenu;
+    public Tutorial tutorial;
     
     public void StartGame()
     {
-        Debug.Log("Lets go!");
         Started = true;
         mainMenu.SetActive(false);
+        tutorial.StartTutorial();
     }
 }

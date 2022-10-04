@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Cooking.Data;
+using Ui;
 using UnityEngine;
 
 namespace Cooking
@@ -87,6 +88,11 @@ namespace Cooking
 
         protected override void HandleIngredient(Player.Player player, Ingredient ingredient)
         {
+            if (ingredient.label == "Bun")
+            {
+                tutorial.BunInOven();
+            }
+            
             if (_cookingMeal == null)
             {
                 base.HandleIngredient(player, ingredient);

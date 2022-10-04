@@ -1,5 +1,6 @@
 ﻿using Cooking;
 using Cooking.Data;
+using Ui;
 using UnityEngine;
 
 namespace Player
@@ -9,6 +10,7 @@ namespace Player
         public Animator animator;
         public Transform target;
         public Transform model;
+        public Tutorial tutorial;
         
         private IPickable _currentItem;
         
@@ -16,6 +18,16 @@ namespace Player
 
         public bool PickIngredient(Ingredient ingredient, bool replace = false)
         {
+            if (ingredient.label == "Bun" && tutorial != null)
+            {
+                tutorial.TakenBun(); 
+            }
+            
+            if (ingredient.label == "Lettuce" && tutorial != null)
+            {
+                tutorial.LettuceTaken(); 
+            }
+            
             if (replace)
             {
                 RemoveCurrent();

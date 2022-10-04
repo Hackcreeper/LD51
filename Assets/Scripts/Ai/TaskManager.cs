@@ -14,6 +14,7 @@ namespace Ai
     {
         public RecipePreview recipePreview;
         public Bot[] bots;
+        public Tutorial tutorial;
 
         private Meal _lockedMeal = null;
         private List<OngoingTask> _ongoingTasks = new List<OngoingTask>();
@@ -21,15 +22,25 @@ namespace Ai
 
         public void LockCurrentMeal(InputAction.CallbackContext context)
         {
-            if (!context.performed || _lockedMeal || !GameState.Started)
+            Debug.Log(Tutorial.State);
+            if (!context.performed || _lockedMeal || !GameState.Started || Tutorial.State < TutorialState.Step3_LockRecipe)
             {
                 return;
             }
+            
+            var meal = recipePreview.GetCurrentMeal();
 
-            _lockedMeal = recipePreview.GetCurrentMeal();
+            if (Tutorial.State == TutorialState.Step3_LockRecipe && meal.label != "Burger")
+            {
+                return;
+            }
+            
+            _lockedMeal = meal;
             recipePreview.MarkLocked();
-
+            
             GiveTasks();
+            
+            tutorial.LockedRecipe();
         }
 
         private void GiveTasks()

@@ -4,6 +4,7 @@ using Cooking;
 using Cooking.Data;
 using Feeding.Data;
 using Ui;
+using Ui.Enum;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -102,7 +103,7 @@ namespace Feeding
 
         private void Update()
         {
-            if (!GameState.Started)
+            if (!GameState.Started || Tutorial.State < TutorialState.Step11_Done)
             { 
                 return;
             }

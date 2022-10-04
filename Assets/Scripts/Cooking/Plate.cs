@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Ai;
 using Cooking.Data;
+using Ui;
+using Ui.Enum;
 using UnityEngine;
 using Util;
 
@@ -42,7 +45,17 @@ namespace Cooking
 
         public override void Interact(Player.Player player)
         {
-            Debug.Log(IsInteractable);
+            if (!GameState.Started)
+            {
+                return;
+            }
+
+            if (player.GetPlayerMovement().GetType() != typeof(BotMovement) &&
+                Tutorial.State < TutorialState.Step6_BringBunToPlate)
+            {
+                return;
+            }
+            
             if (player.GetItemHolder().IsEmpty())
             {
                 player.GetItemHolder().PickPlate(this);
@@ -69,7 +82,6 @@ namespace Cooking
                 return;
             }
             
-            
             var playerIngredient = player.GetItemHolder().GetCurrentIngredient();
             if (!playerIngredient || _ingredients.Contains(playerIngredient) || (_placedMeal != null && _placedMeal.IsComplete()))
             {
@@ -80,6 +92,16 @@ namespace Cooking
             allIngredients.AddRange(_ingredients);
             allIngredients.Add(playerIngredient);
 
+            if (playerIngredient.label == "Baked Bun")
+            {
+                Tutorial.Instance.PlacedBunOnPlate();
+            }
+            
+            if (playerIngredient.label == "Leaf of Lettuce")
+            {
+                Tutorial.Instance.PlacedLettuceOnPlate();
+            }
+            
             var possibleMeals = (from meal in meals let worked = allIngredients.All(ingredient => meal.ingredients.Contains(ingredient)) where worked select meal).ToList();
 
             switch (possibleMeals.Count)

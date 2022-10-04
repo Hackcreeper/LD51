@@ -10,13 +10,14 @@ namespace Ui
     {
         public MealRecipeUi[] recipes;
         public Color lockedColor = Color.yellow;
+        public Tutorial tutorial;
 
         private int _active = 0;
         private int _lastLocked = 0;
 
         public void OnNextRecipe(InputAction.CallbackContext context)
         {
-            if (!context.performed)
+            if (!context.performed || Tutorial.State < TutorialState.Step2_SwitchToBurger)
             {
                 return;
             }
@@ -32,11 +33,16 @@ namespace Ui
             
             recipes[_active].blockerElement.SetActive(true);
             recipes[_active].recipeListElement.SetActive(true);
+
+            if (recipes[_active].meal.label == "Burger")
+            {
+                tutorial.BurgerRecipeSelected();
+            }
         }
 
         public void OnPreviousRecipe(InputAction.CallbackContext context)
         {
-            if (!context.performed)
+            if (!context.performed || Tutorial.State < TutorialState.Step2_SwitchToBurger)
             {
                 return;
             }
@@ -52,6 +58,11 @@ namespace Ui
             
             recipes[_active].blockerElement.SetActive(true);
             recipes[_active].recipeListElement.SetActive(true);
+            
+            if (recipes[_active].meal.label == "Burger")
+            {
+                tutorial.BurgerRecipeSelected();
+            }
         }
 
         public Meal GetCurrentMeal()
